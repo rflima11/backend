@@ -1,11 +1,11 @@
 package com.fluytcloud.restaurante;
 
-import javax.annotation.security.RolesAllowed;
+import io.quarkus.security.identity.SecurityIdentity;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-
-import io.quarkus.security.identity.SecurityIdentity;
 
 @Path("/api/users")
 public class UsersResource {
@@ -13,9 +13,13 @@ public class UsersResource {
     @Inject
     SecurityIdentity securityIdentity;
 
+    @Inject
+    JsonWebToken jwt;
+
     @GET
     @Path("/me")
     public User me() {
+        jwt.getGroups().forEach(System.out::println);
         return new User(securityIdentity);
     }
 
