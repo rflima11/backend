@@ -1,0 +1,49 @@
+version: '3'
+services:
+
+  postgres-app:
+    image: postgres:latest
+    container_name: postgres-app
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./app-postgres.env
+    ports:
+      - 5433:5432
+    expose:
+      - 5433
+
+  postgres-keycloak:
+    image: postgres:latest
+    container_name: postgres-keycloak
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./keycloak-postgres.env
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:19.0.1
+    container_name: keycloak
+    restart: unless-stopped
+    env_file:
+      - ./keycloak-postgres.env
+    entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev", "--auto-build", "--db=postgres", "--import-realm"]
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm.json
+    expose:
+      - 18080
+    ports:
+      - 18080:8080
+    depends_on:
+      - postgres-keycloak
+
+volumes:
+  postgres_data:
+    name: keycloak_postgres_data
+    driver: local
