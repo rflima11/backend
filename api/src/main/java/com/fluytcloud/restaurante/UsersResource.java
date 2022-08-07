@@ -1,5 +1,6 @@
 package com.fluytcloud.restaurante;
 
+import com.fluytcloud.company.interactors.CustomerService;
 import io.quarkus.security.identity.SecurityIdentity;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -17,17 +18,24 @@ public class UsersResource {
     @Inject
     JsonWebToken jwt;
 
+    @Inject
+    CustomerService customerService;
+
     @GET
     @Path("/me")
     public User me() {
-        var companyLoginResponse = jwt.getGroups()
+        var identifiers = jwt.getGroups()
                 .stream()
                 .filter(it -> it.startsWith("/clientes/"))
                 .map(it -> it.split("/")[2])
-                .map(CompanyLoginResponse::new)
                 .collect(Collectors.toSet());
 
-        companyLoginResponse.forEach(System.out::println);
+        var customers = customerService.findByIdentifiers(identifiers)
+                .stream()
+                .map(it -> new CompanyLoginResponse(it.name()))
+                .toList();
+
+        customers.forEach(System.out::println);
 
 
         jwt.getGroups().forEach(System.out::println);
