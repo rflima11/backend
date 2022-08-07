@@ -10,8 +10,7 @@ import java.util.Set;
 @ApplicationScoped
 public class CustomerService {
 
-    @Inject
-    CustomerRepository customerRepository;
+    @Inject CustomerRepository customerRepository;
 
     public Set<Customer> findByIdentifiers(Set<String> identifiers) {
         return customerRepository.findByIdentifiers(identifiers);
