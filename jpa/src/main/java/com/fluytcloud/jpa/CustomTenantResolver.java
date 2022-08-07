@@ -1,4 +1,4 @@
-package com.fluytcloud.restaurante;
+package com.fluytcloud.jpa;
 
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
 import io.quarkus.hibernate.orm.runtime.tenant.TenantResolver;

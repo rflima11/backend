@@ -7,11 +7,11 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/person")
-public class GreetingResource {
+public class PersonResource {
 
     private final PersonUseCase personUseCase;
 
-    public GreetingResource(PersonUseCase personUseCase) {
+    public PersonResource(PersonUseCase personUseCase) {
         this.personUseCase = personUseCase;
     }
 
