@@ -18,7 +18,7 @@ public class CustomerMemoryRepositoryImpl implements CustomerRepository {
         this.customers = List.of(
                 new Customer(1L, "Grimpa Burguer", "grimpa"),
                 new Customer(2L, "Bombar Avenida", "bombar"),
-                new Customer(3L, "Pato Lanches", "pato_lanches")
+                new Customer(3L, "Gordão", "gordao")
         );
     }
 
