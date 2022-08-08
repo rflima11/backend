@@ -2,6 +2,8 @@ package com.fluytcloud.auth.transport.http.resource;
 
 import com.fluytcloud.auth.entities.UserInfoContext;
 import com.fluytcloud.auth.interactors.UserInfoService;
+import com.fluytcloud.auth.transport.http.mapper.UserInfoMapper;
+import com.fluytcloud.auth.transport.http.response.UserInfoResponse;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -13,6 +15,8 @@ public class AuthResource {
 
     @Inject
     UserInfoService userInfoService;
+
+    private static final UserInfoMapper USER_INFO_MAPPER = new UserInfoMapper();
 
     @GET
     @Path("/full-authentication")
@@ -30,6 +34,11 @@ public class AuthResource {
     @Path("/logout")
     public void logout() {
         userInfoService.delete();
+    }
+
+    @GET
+    public UserInfoResponse get() {
+        return USER_INFO_MAPPER.map(UserInfoContext.getCurrentUserInfo());
     }
 
 }

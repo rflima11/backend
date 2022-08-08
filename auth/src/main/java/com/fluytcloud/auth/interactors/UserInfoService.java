@@ -5,6 +5,8 @@ import com.fluytcloud.auth.entities.UserInfoContext;
 import com.fluytcloud.auth.repositories.UserInfoRepository;
 import com.fluytcloud.auth.transport.http.exception.AccessDeniedException;
 import com.fluytcloud.security.interactors.SessionService;
+import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
+import io.quarkus.security.identity.SecurityIdentity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,6 +17,9 @@ public class UserInfoService {
 
     @Inject
     SessionService sessionService;
+
+    @Inject
+    SecurityIdentity securityIdentity;
 
     @Inject
     UserInfoRepository userInfoRepository;
@@ -28,9 +33,13 @@ public class UserInfoService {
     }
 
     public void set(String identifier) {
+        var name = ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getClaim("name").toString();
+        var username = securityIdentity.getPrincipal().getName();
+
         var userInfo = companyService.getUserCompanyByIdentifier(identifier)
-                .map(UserInfo::new)
+                .map(it -> new UserInfo(name, username, it))
                 .orElseThrow(AccessDeniedException::new);
+
         set(userInfo);
     }
 
