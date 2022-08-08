@@ -1,4 +1,4 @@
-package com.fluytcloud.restaurante;
+package com.fluytcloud.api.transport.http;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;

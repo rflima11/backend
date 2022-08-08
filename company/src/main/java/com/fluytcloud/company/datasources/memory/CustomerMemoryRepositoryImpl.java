@@ -5,6 +5,7 @@ import com.fluytcloud.company.repositories.CustomerRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,13 @@ public class CustomerMemoryRepositoryImpl implements CustomerRepository {
         return customers.stream()
                 .filter(it -> identifiers.contains(it.identifier()))
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Optional<Customer> getByIdentifier(String identifier) {
+        return customers.stream()
+                .filter(it -> it.identifier().equals(identifier))
+                .findFirst();
     }
 
 }

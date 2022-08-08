@@ -7,6 +7,7 @@ import com.fluytcloud.security.interactors.GroupService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,8 +28,13 @@ public class CompanyService {
 
         return customerService.findByIdentifiers(identifiers)
                 .stream()
-                .map(it -> new Company(it.name()))
+                .map(it -> new Company(it.id(), it.name(), it.identifier()))
                 .collect(Collectors.toSet());
+    }
+
+    public Optional<Company> getByIdentifier(String identifier) {
+        return customerService.getByIdentifier(identifier)
+                .map(it -> new Company(it.id(), it.name(), it.identifier()));
     }
 
 }

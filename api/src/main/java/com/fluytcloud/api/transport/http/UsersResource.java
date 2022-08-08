@@ -1,13 +1,12 @@
-package com.fluytcloud.restaurante;
+package com.fluytcloud.api.transport.http;
 
 import com.fluytcloud.auth.interactors.CompanyService;
-import com.fluytcloud.company.interactors.CustomerService;
+import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
 import io.quarkus.security.identity.SecurityIdentity;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import java.util.stream.Collectors;
 
 @Path("/api/users")
 public class UsersResource {
@@ -21,6 +20,9 @@ public class UsersResource {
     @GET
     @Path("/me")
     public User me() {
+        var state = ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getClaim("session_state");
+        System.out.println(state.toString());
+
         var companies = companyService.getUserCompanies();
 
         companies.forEach(System.out::println);
