@@ -24,7 +24,8 @@ public class CompanyFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        if ("/companies".equals(containerRequestContext.getUriInfo().getPath())) {
+        if ("/companies".equals(containerRequestContext.getUriInfo().getPath())
+                || "/auth/full-authentication".equals(containerRequestContext.getUriInfo().getPath())) {
             return;
         }
 

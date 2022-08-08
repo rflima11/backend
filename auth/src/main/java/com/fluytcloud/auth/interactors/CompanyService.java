@@ -32,6 +32,17 @@ public class CompanyService {
                 .collect(Collectors.toSet());
     }
 
+    public Optional<Company> getUserCompanyByIdentifier(String identifier) {
+        var exists = groupService.getUserCompanies()
+                .stream()
+                .anyMatch(it -> it.name().equals(identifier));
+        if (exists) {
+            return getByIdentifier(identifier);
+        }
+
+        return Optional.empty();
+    }
+
     public Optional<Company> getByIdentifier(String identifier) {
         return customerService.getByIdentifier(identifier)
                 .map(it -> new Company(it.id(), it.name(), it.identifier()));

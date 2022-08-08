@@ -3,6 +3,7 @@ package com.fluytcloud.auth.interactors;
 import com.fluytcloud.auth.entities.UserInfo;
 import com.fluytcloud.auth.entities.UserInfoContext;
 import com.fluytcloud.auth.repositories.UserInfoRepository;
+import com.fluytcloud.auth.transport.http.exception.AccessDeniedException;
 import com.fluytcloud.security.interactors.SessionService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,9 +19,23 @@ public class UserInfoService {
     @Inject
     UserInfoRepository userInfoRepository;
 
+    @Inject
+    CompanyService companyService;
+
     public void set(UserInfo userInfo) {
         userInfoRepository.setBySessionId(sessionService.getSessionId(), userInfo);
         UserInfoContext.setCurrentTenant(userInfo);
+    }
+
+    public void set(String identifier) {
+        var userInfo = companyService.getUserCompanyByIdentifier(identifier)
+                .map(it -> new UserInfo(it.id()))
+                .orElseThrow(AccessDeniedException::new);
+        set(userInfo);
+    }
+
+    public void delete() {
+        userInfoRepository.deleteBySessionId(sessionService.getSessionId());
     }
 
     public Optional<UserInfo> get() {

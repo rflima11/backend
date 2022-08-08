@@ -10,4 +10,6 @@ public interface UserInfoRepository {
 
     Optional<UserInfo> getBySessionId(String sessionId);
 
+    void deleteBySessionId(String sessionId);
+
 }
