@@ -22,14 +22,14 @@ public class UserInfoService {
     @Inject
     CompanyService companyService;
 
-    public void set(UserInfo userInfo) {
+    private void set(UserInfo userInfo) {
         userInfoRepository.setBySessionId(sessionService.getSessionId(), userInfo);
         UserInfoContext.setCurrentTenant(userInfo);
     }
 
     public void set(String identifier) {
         var userInfo = companyService.getUserCompanyByIdentifier(identifier)
-                .map(it -> new UserInfo(it.id()))
+                .map(UserInfo::new)
                 .orElseThrow(AccessDeniedException::new);
         set(userInfo);
     }

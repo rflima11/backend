@@ -1,6 +1,5 @@
 package com.fluytcloud.auth.transport.http.filter;
 
-import com.fluytcloud.auth.entities.UserInfo;
 import com.fluytcloud.auth.entities.UserInfoContext;
 import com.fluytcloud.auth.interactors.CompanyService;
 import com.fluytcloud.auth.interactors.UserInfoService;
@@ -11,7 +10,7 @@ import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
+import java.util.function.Predicate;
 
 @Provider
 public class CompanyFilter implements ContainerRequestFilter {
@@ -22,10 +21,19 @@ public class CompanyFilter implements ContainerRequestFilter {
     @Inject
     CompanyService companyService;
 
+    private static final Predicate<ContainerRequestContext> ALLOWED_COMPANIES_ROUTE = value
+            -> "/companies".equals(value.getUriInfo().getPath());
+
+    private static final Predicate<ContainerRequestContext> ALLOWED_FULL_AUTHENTICATION_ROUTE = value
+            -> "/auth/full-authentication".equals(value.getUriInfo().getPath()) && "POST".equals(value.getMethod());
+
+    private static final Predicate<ContainerRequestContext> ALLOWED_ROUTE = ALLOWED_COMPANIES_ROUTE
+            .or(ALLOWED_FULL_AUTHENTICATION_ROUTE);
+
+
     @Override
-    public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        if ("/companies".equals(containerRequestContext.getUriInfo().getPath())
-                || "/auth/full-authentication".equals(containerRequestContext.getUriInfo().getPath())) {
+    public void filter(ContainerRequestContext containerRequestContext) {
+        if (ALLOWED_ROUTE.test(containerRequestContext)) {
             return;
         }
 
@@ -45,7 +53,7 @@ public class CompanyFilter implements ContainerRequestFilter {
         }
 
         var company = companies.iterator().next();
-        userInfoService.set(new UserInfo(company.id()));
+        userInfoService.set(company.identifier());
     }
 
 }

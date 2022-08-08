@@ -1,4 +1,4 @@
 package com.fluytcloud.auth.entities;
 
-public record UserInfo(Long company/*, Long branch*/) {
+public record UserInfo(Company company) {
 }
