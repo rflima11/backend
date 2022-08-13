@@ -50,7 +50,6 @@ jobs:
       with:
         context: .
         push: true
-        file: Dockerfile-github-actions
         tags: gasparbarancelli/restaurante-backend:${{github.run_number}}
         cache-from: type=gha
         cache-to: type=gha,mode=max
