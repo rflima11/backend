@@ -46,6 +46,7 @@ jobs:
       uses: docker/build-push-action@v3.1.1
       with:
         push: true
+        file: Dockerfile-github-actions
         tags: gasparbarancelli/restaurante-backend:${{github.run_number}}
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}   
