@@ -3,10 +3,10 @@ FROM registry.access.redhat.com/ubi8/openjdk-17:latest
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 api/target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 api/target/quarkus-app/*.jar /deployments/
-COPY --chown=185 api/target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 api/target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY --chown=185 /home/runner/work/restaurante-backend/restaurante-backend/api/target/quarkus-app/lib/ /deployments/lib/
+COPY --chown=185 /home/runner/work/restaurante-backend/restaurante-backend/api/target/quarkus-app/*.jar /deployments/
+COPY --chown=185 /home/runner/work/restaurante-backend/restaurante-backend/api/target/quarkus-app/app/ /deployments/app/
+COPY --chown=185 /home/runner/work/restaurante-backend/restaurante-backend/api/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 185
