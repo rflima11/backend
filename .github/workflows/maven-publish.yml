@@ -56,3 +56,17 @@ jobs:
           QUARKUS_CONTAINER_IMAGE_NAME: restaurante-backend
           QUARKUS_CONTAINER_IMAGE_TAG: ${{github.run_number}}
         run:  mvn -B clean package -Dquarkus.container-image.build=true
+
+  gitops:
+    runs-on: ubuntu-latest
+    name: Deploy
+    needs: build
+    steps:
+      - name: Update gitOps repository
+        uses: simplycubed/gitops-update@0.16
+        with:
+          filename: "apps/restaurante/backend/app.yaml"
+          key: "spec.template.spec.containers.0.image"
+          value: "gasparbarancelli/restaurante-backend:${{github.run_number}}"
+          github-deploy-key: ${{secrets.GITOPS}}
+          github-org-and-repo: "fluytcloud/restaurante-infrastructure"
