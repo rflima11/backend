@@ -60,7 +60,7 @@ jobs:
   gitops:
     runs-on: ubuntu-latest
     name: Deploy
-    needs: build
+    needs: delivery
     steps:
       - name: Update gitOps repository
         uses: simplycubed/gitops-update@0.16
