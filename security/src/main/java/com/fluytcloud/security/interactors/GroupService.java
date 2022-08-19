@@ -13,16 +13,14 @@ public class GroupService {
 
     @Inject JsonWebToken jwt;
 
-    private static final String KEYCLOAK_GROUP = "/clientes/";
-    private static final int KEYCLOAK_GROUP_INDEX_COMPANY = 2;
+    private static final int KEYCLOAK_GROUP_INDEX_COMPANY = 1;
 
     private static final String KEYCLOAK_GROUP_CHAR_SEPARATOR = "/";
 
     public Set<Group> getUserCompanies() {
         return jwt.getGroups()
                 .stream()
-                .filter(it -> it.startsWith(KEYCLOAK_GROUP)
-                        && it.split(KEYCLOAK_GROUP_CHAR_SEPARATOR).length >= KEYCLOAK_GROUP_INDEX_COMPANY)
+                .filter(it -> it.split(KEYCLOAK_GROUP_CHAR_SEPARATOR).length >= KEYCLOAK_GROUP_INDEX_COMPANY)
                 .map(it -> it.split(KEYCLOAK_GROUP_CHAR_SEPARATOR)[KEYCLOAK_GROUP_INDEX_COMPANY])
                 .map(Group::new)
                 .collect(Collectors.toSet());
