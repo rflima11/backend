@@ -1,0 +1,11 @@
+CREATE TABLE public.CITY (
+      ID  SERIAL PRIMARY KEY,
+      NAME varchar(80) NOT NULL,
+      IBGE_CODE bpchar(7) NULL,
+      ESTIMATED_POPULATION int4 NOT NULL DEFAULT 0,
+      STATE_NAME varchar(60) NOT NULL,
+      STATE_INITIALS bpchar(2) NULL,
+      STATE_CODE int4 NULL
+);
+
+

@@ -56,7 +56,7 @@ jobs:
           QUARKUS_CONTAINER_IMAGE_GROUP: gasparbarancelli
           QUARKUS_CONTAINER_IMAGE_NAME: restaurante-backend
           QUARKUS_CONTAINER_IMAGE_TAG: ${{github.run_number}}
-        run:  mvn -B clean package -Dquarkus.container-image.build=true
+        run:  mvn -B clean package -Dquarkus.profile=prod -Dquarkus.container-image.build=true
 
   gitops:
     runs-on: ubuntu-latest
