@@ -1,4 +1,4 @@
-package com.fluytcloud.migration.entities;
+package com.fluytcloud.admin.entities;
 
 public class Customer {
 

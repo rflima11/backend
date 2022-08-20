@@ -1,7 +1,7 @@
-package com.fluytcloud.migration.datasource.relational.mapper;
+package com.fluytcloud.admin.datasources.relational.mapper;
 
-import com.fluytcloud.migration.datasource.relational.model.CustomerModel;
-import com.fluytcloud.migration.entities.Customer;
+import com.fluytcloud.admin.datasources.relational.model.CustomerModel;
+import com.fluytcloud.admin.entities.Customer;
 
 public class CustomerModelMapper {
 

@@ -1,6 +1,6 @@
 package com.fluytcloud.migration.interactors;
 
-import com.fluytcloud.migration.repositories.CustomerRepository;
+import com.fluytcloud.admin.interactors.CustomerService;
 import io.quarkus.runtime.Startup;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
@@ -13,11 +13,11 @@ import javax.sql.DataSource;
 public class CustomerMigration {
 
     private final DataSource dataSource;
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
-    public CustomerMigration(DataSource dataSource, CustomerRepository customerRepository) {
+    public CustomerMigration(DataSource dataSource, CustomerService customerService) {
         this.dataSource = dataSource;
-        this.customerRepository = customerRepository;
+        this.customerService = customerService;
         migrationAllCustomers();
     }
 
@@ -39,7 +39,7 @@ public class CustomerMigration {
      * When starting application, the schemas of all customers must be migrated
      */
     public void migrationAllCustomers() {
-        customerRepository.findAll().forEach(customer -> migration(customer.getSchemaName()));
+        customerService.getSchemaNames().forEach(this::migration);
     }
 
 }

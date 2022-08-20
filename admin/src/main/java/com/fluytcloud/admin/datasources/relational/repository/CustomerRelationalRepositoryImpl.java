@@ -1,9 +1,9 @@
-package com.fluytcloud.migration.datasource.relational.repository;
+package com.fluytcloud.admin.datasources.relational.repository;
 
-import com.fluytcloud.migration.datasource.relational.mapper.CustomerModelMapper;
-import com.fluytcloud.migration.datasource.relational.model.CustomerModel;
-import com.fluytcloud.migration.entities.Customer;
-import com.fluytcloud.migration.repositories.CustomerRepository;
+import com.fluytcloud.admin.datasources.relational.mapper.CustomerModelMapper;
+import com.fluytcloud.admin.datasources.relational.model.CustomerModel;
+import com.fluytcloud.admin.entities.Customer;
+import com.fluytcloud.admin.repositories.CustomerRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;

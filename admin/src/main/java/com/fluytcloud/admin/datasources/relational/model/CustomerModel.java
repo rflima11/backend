@@ -1,10 +1,10 @@
-package com.fluytcloud.migration.datasource.relational.model;
+package com.fluytcloud.admin.datasources.relational.model;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CUSTOMER", schema = "fluyt_cloud")
+@Table(name = "CUSTOMER", schema = "admin")
 public class CustomerModel {
 
     @Id

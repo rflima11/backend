@@ -1,6 +1,7 @@
-package com.fluytcloud.migration.repositories;
+package com.fluytcloud.admin.repositories;
 
-import com.fluytcloud.migration.entities.Customer;
+
+import com.fluytcloud.admin.entities.Customer;
 
 import java.util.List;
 
