@@ -1,6 +1,5 @@
 package com.fluytcloud.auth.entities;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -11,14 +10,12 @@ public class User {
     private final String name;
     private final String firstName;
     private final String lastName;
-    private final String group;
-    private final List<String> subGroups;
+    private final List<Group> groups;
 
-    public User(String email, String name, String group, List<String> subGroups) {
+    public User(String email, String name, List<Group> groups) {
         this.email = Objects.requireNonNull(email);
         this.name = Objects.requireNonNull(name);
-        this.group = group;
-        this.subGroups = subGroups;
+        this.groups = groups;
 
         var splitName = name.split(" ");
         firstName = splitName[0];
@@ -46,11 +43,7 @@ public class User {
         return Optional.ofNullable(lastName);
     }
 
-    public String getGroup() {
-        return group;
-    }
-
-    public List<String> getSubGroups() {
-        return Collections.unmodifiableList(subGroups);
+    public List<Group> getGroups() {
+        return groups;
     }
 }

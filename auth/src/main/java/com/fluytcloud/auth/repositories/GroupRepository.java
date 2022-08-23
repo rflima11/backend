@@ -1,7 +1,9 @@
 package com.fluytcloud.auth.repositories;
 
+import com.fluytcloud.auth.entities.Group;
+
 public interface GroupRepository {
 
-    boolean create(String group, String... subGroups);
+    boolean create(Group group);
 
 }

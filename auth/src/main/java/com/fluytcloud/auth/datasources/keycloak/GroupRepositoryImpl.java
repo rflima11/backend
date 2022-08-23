@@ -1,5 +1,6 @@
 package com.fluytcloud.auth.datasources.keycloak;
 
+import com.fluytcloud.auth.entities.Group;
 import com.fluytcloud.auth.repositories.GroupRepository;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.GroupsResource;
@@ -7,7 +8,6 @@ import org.keycloak.representations.idm.GroupRepresentation;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
 
 @ApplicationScoped
 public class GroupRepositoryImpl extends KeycloakConnection implements GroupRepository {
@@ -19,26 +19,26 @@ public class GroupRepositoryImpl extends KeycloakConnection implements GroupRepo
     }
 
     @Override
-    public boolean create(String group, String... subGroups) {
+    public boolean create(Group group) {
         GroupRepresentation groupRepresentation = new GroupRepresentation();
-        groupRepresentation.setName(group);
+        groupRepresentation.setName(group.name());
         groupRepresentation.setPath("/" + group);
         Response response = this.groupsResource.add(groupRepresentation);
         var groupId = CreatedResponseUtil.getCreatedId(response);
 
         var groupKeycloak = groupsResource.group(groupId);
 
-        Arrays.stream(subGroups)
+        group.subGroups()
+                .stream()
                 .map(subGroup -> {
                     var subGroupRepresentation = new GroupRepresentation();
-                    subGroupRepresentation.setName(subGroup);
-                    subGroupRepresentation.setPath("/" + group + "/" + subGroup);
+                    subGroupRepresentation.setName(subGroup.name());
+                    subGroupRepresentation.setPath("/" + group.name() + "/" + subGroup);
                     return subGroupRepresentation;
                 })
                 .forEach(groupKeycloak::subGroup);
 
         return response.getStatus() == 201;
-
     }
 
 }

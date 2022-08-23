@@ -1,5 +1,6 @@
 package com.fluytcloud.auth.interactors;
 
+import com.fluytcloud.auth.entities.Group;
 import com.fluytcloud.auth.repositories.GroupRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,8 +14,7 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
-    public boolean create(String group, String... subGroups) {
-        return groupRepository.create(group, subGroups);
+    public boolean create(Group group) {
+        return groupRepository.create(group);
     }
-
 }

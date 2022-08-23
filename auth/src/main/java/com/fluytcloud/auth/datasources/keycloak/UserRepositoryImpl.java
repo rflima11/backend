@@ -3,10 +3,11 @@ package com.fluytcloud.auth.datasources.keycloak;
 import com.fluytcloud.auth.datasources.keycloak.mapper.UserRepresentationMapper;
 import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.repositories.UserRepository;
-import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.CreatedResponseUtil;
-import org.keycloak.admin.client.KeycloakBuilder;
-import org.keycloak.admin.client.resource.*;
+import org.keycloak.admin.client.resource.GroupResource;
+import org.keycloak.admin.client.resource.GroupsResource;
+import org.keycloak.admin.client.resource.UserResource;
+import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -14,6 +15,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class UserRepositoryImpl extends KeycloakConnection implements UserRepository {
@@ -28,9 +30,7 @@ public class UserRepositoryImpl extends KeycloakConnection implements UserReposi
     }
 
     public boolean create(User user) {
-        var subGroups = getSubGroupsPath(user.getGroup(), user.getSubGroups());
-
-        UserRepresentation userRepresentation = MAPPER.map(user, subGroups);
+        UserRepresentation userRepresentation = MAPPER.map(user);
 
         Response response = usersRessource.create(userRepresentation);
         if (response.getStatus() == 201) {
@@ -49,7 +49,17 @@ public class UserRepositoryImpl extends KeycloakConnection implements UserReposi
         return false;
     }
 
-    private GroupResource getGroupResource(String group) {
+    public Optional<User> findByUsername(String username) {
+        var usersRepresentation = usersRessource.search(username);
+        if (usersRepresentation.isEmpty()) {
+            return Optional.empty();
+        }
+        var userRepresentation = usersRepresentation.get(0);
+        var user = MAPPER.map(userRepresentation);
+        return Optional.of(user);
+    }
+
+    /*private GroupResource getGroupResource(String group) {
         var groups = groupsResource.groups(
                 group,
                 0,
@@ -78,6 +88,6 @@ public class UserRepositoryImpl extends KeycloakConnection implements UserReposi
         }
 
         return subGroupsPath;
-    }
+    }*/
 
 }

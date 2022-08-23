@@ -1,6 +1,5 @@
 package com.fluytcloud.migration.interactors;
 
-import com.fluytcloud.admin.interactors.CustomerService;
 import io.quarkus.runtime.Startup;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
@@ -10,15 +9,12 @@ import javax.sql.DataSource;
 
 @Startup
 @ApplicationScoped
-public class CustomerMigration {
+public class MigrationUseCase {
 
     private final DataSource dataSource;
-    private final CustomerService customerService;
 
-    public CustomerMigration(DataSource dataSource, CustomerService customerService) {
+    public MigrationUseCase(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.customerService = customerService;
-        migrationAllCustomers();
     }
 
     /**
@@ -33,13 +29,6 @@ public class CustomerMigration {
                 .schemas(schema);
 
         return new Flyway(configuration).migrate().success;
-    }
-
-    /**
-     * When starting application, the schemas of all customers must be migrated
-     */
-    public void migrationAllCustomers() {
-        customerService.getSchemaNames().forEach(this::migration);
     }
 
 }

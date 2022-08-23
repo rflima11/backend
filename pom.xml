@@ -14,8 +14,8 @@
     <module>jpa</module>
     <module>security</module>
     <module>rest</module>
-      <module>migration</module>
-      <module>admin</module>
+    <module>migration</module>
+    <module>admin</module>
   </modules>
 
   <properties>
