@@ -8,9 +8,9 @@ public class StringUtil {
     }
 
     public static String stripAccents(String value) {
+        value = value.trim().replace(" ", "_").toLowerCase();
         value = Normalizer.normalize(value, Normalizer.Form.NFD);
-        value = value.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        return value;
+        return value.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
     }
 
 }
