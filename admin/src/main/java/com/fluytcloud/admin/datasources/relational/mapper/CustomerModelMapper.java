@@ -11,13 +11,31 @@ public class CustomerModelMapper {
                 .schemaName(customerModel.getSchemaName())
                 .companyName(customerModel.getCompanyName())
                 .tradeName(customerModel.getTradeName())
+                .phoneNumber(customerModel.getPhoneNumber())
                 .cityId(customerModel.getCityId())
+                .email(customerModel.getEmail())
                 .cnpj(customerModel.getCnpj())
                 .address(customerModel.getAddress())
                 .addressNumber(customerModel.getAddressNumber())
                 .district(customerModel.getDistrict())
                 .complement(customerModel.getComplement())
                 .build();
+    }
+
+    public CustomerModel map(Customer customer) {
+        return new CustomerModel()
+                .setId(customer.getId())
+                .setSchemaName(customer.getSchemaName())
+                .setPhoneNumber(customer.getPhoneNumber())
+                .setCompanyName(customer.getCompanyName())
+                .setTradeName(customer.getTradeName())
+                .setCityId(customer.getCityId())
+                .setEmail(customer.getEmail())
+                .setCnpj(customer.getCnpj())
+                .setAddress(customer.getAddress())
+                .setAddressNumber(customer.getAddressNumber())
+                .setDistrict(customer.getDistrict())
+                .setComplement(customer.getComplement());
     }
 
 }

@@ -2,6 +2,7 @@ CREATE TABLE PERSON (
       ID  SERIAL PRIMARY KEY,
       NAME bpchar(100) NOT NULL,
       PHONE_NUMBER bpchar(15) NOT NULL,
+      EMAIL bpchar(100) NOT NULL,
       CPF bpchar(11) NULL,
       CNPJ bpchar(14) NULL,
       CITY_ID INT NOT NULL,

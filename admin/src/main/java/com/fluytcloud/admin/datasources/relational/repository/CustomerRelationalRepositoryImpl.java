@@ -1,12 +1,13 @@
 package com.fluytcloud.admin.datasources.relational.repository;
 
 import com.fluytcloud.admin.datasources.relational.mapper.CustomerModelMapper;
-import com.fluytcloud.admin.datasources.relational.model.CustomerModel;
 import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.repositories.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -14,21 +15,39 @@ import java.util.List;
 public class CustomerRelationalRepositoryImpl implements CustomerRepository {
 
     private static final CustomerModelMapper CUSTOMER_MODEL_MAPPER = new CustomerModelMapper();
-    private final EntityManager entityManager;
+    private final CustomerJpaRepository customerJpaRepository;
 
-    public CustomerRelationalRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CustomerRelationalRepositoryImpl(CustomerJpaRepository customerJpaRepository) {
+        this.customerJpaRepository = customerJpaRepository;
     }
 
     @Override
     @Transactional
     public List<Customer> findAll() {
-        return entityManager
-                .createQuery("select c from CustomerModel c", CustomerModel.class)
-                .getResultList()
+        return customerJpaRepository.findAll()
                 .stream()
                 .map(CUSTOMER_MODEL_MAPPER::map)
                 .toList();
+    }
+
+    @Transactional
+    public Page<Customer> findAll(Pageable pageable) {
+        var page = customerJpaRepository.findAll(pageable);
+        return new PageImpl<>(
+                page.getContent()
+                        .stream()
+                        .map(CUSTOMER_MODEL_MAPPER::map)
+                        .toList(),
+                page.getPageable(),
+                page.getTotalElements()
+        );
+    }
+
+    @Override
+    @Transactional
+    public void create(Customer customer) {
+        var model = CUSTOMER_MODEL_MAPPER.map(customer);
+        customerJpaRepository.save(model);
     }
 
 }

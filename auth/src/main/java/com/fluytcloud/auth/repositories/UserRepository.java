@@ -4,6 +4,6 @@ import com.fluytcloud.auth.entities.User;
 
 public interface UserRepository {
 
-    void create(User user);
+    boolean create(User user);
 
 }

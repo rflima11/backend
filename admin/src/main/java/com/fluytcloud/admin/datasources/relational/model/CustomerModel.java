@@ -24,6 +24,9 @@ public class CustomerModel {
     @Column(name = "CNPJ", length = 14, nullable = false)
     private String cnpj;
 
+    @Column(name = "EMAIL", length = 100, nullable = false)
+    private String email;
+
     @Column(name = "CITY_ID", nullable = false)
     private Integer cityId;
 
@@ -46,88 +49,108 @@ public class CustomerModel {
         return id;
     }
 
-    public void setId(Integer id) {
+    public CustomerModel setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getSchemaName() {
         return schemaName;
     }
 
-    public void setSchemaName(String schemaName) {
+    public CustomerModel setSchemaName(String schemaName) {
         this.schemaName = schemaName;
+        return this;
     }
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
+    public CustomerModel setCompanyName(String companyName) {
         this.companyName = companyName;
+        return this;
     }
 
     public String getTradeName() {
         return tradeName;
     }
 
-    public void setTradeName(String tradeName) {
+    public CustomerModel setTradeName(String tradeName) {
         this.tradeName = tradeName;
+        return this;
     }
 
     public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
+    public CustomerModel setCnpj(String cnpj) {
         this.cnpj = cnpj;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public CustomerModel setEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(Integer cityId) {
+    public CustomerModel setCityId(Integer cityId) {
         this.cityId = cityId;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public CustomerModel setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     public String getAddressNumber() {
         return addressNumber;
     }
 
-    public void setAddressNumber(String addressNumber) {
+    public CustomerModel setAddressNumber(String addressNumber) {
         this.addressNumber = addressNumber;
+        return this;
     }
 
     public String getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
+    public CustomerModel setDistrict(String district) {
         this.district = district;
+        return this;
     }
 
     public String getComplement() {
         return complement;
     }
 
-    public void setComplement(String complement) {
+    public CustomerModel setComplement(String complement) {
         this.complement = complement;
+        return this;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public CustomerModel setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
     }
 
     @Override

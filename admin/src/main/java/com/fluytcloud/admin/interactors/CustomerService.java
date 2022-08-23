@@ -2,6 +2,8 @@ package com.fluytcloud.admin.interactors;
 
 import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.repositories.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Set;
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -22,5 +24,10 @@ public class CustomerService {
                 .map(Customer::getSchemaName)
                 .collect(Collectors.toSet());
     }
+
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
+    }
+
 
 }

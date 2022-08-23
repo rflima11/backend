@@ -16,27 +16,18 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @ApplicationScoped
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl extends KeycloakConnection implements UserRepository {
 
     private static final UserRepresentationMapper MAPPER  = new UserRepresentationMapper();
     private final GroupsResource groupsResource;
     private final UsersResource usersRessource;
 
     public UserRepositoryImpl() {
-        var keycloak = KeycloakBuilder.builder()
-                .serverUrl("https://auth.fluytcloud.com")
-                .realm("restaurante")
-                .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-                .clientId("app-backend")
-                .clientSecret("qz4cQj1YqC9a5ghnGFrXHdjeRWsJceUe")
-                .build();
-
-        RealmResource realmResource = keycloak.realm("restaurante");
-        groupsResource = realmResource.groups();
-        usersRessource = realmResource.users();
+        groupsResource = getRealmResource().groups();
+        usersRessource = getRealmResource().users();
     }
 
-    public void create(User user) {
+    public boolean create(User user) {
         var subGroups = getSubGroupsPath(user.getGroup(), user.getSubGroups());
 
         UserRepresentation userRepresentation = MAPPER.map(user, subGroups);
@@ -51,9 +42,11 @@ public class UserRepositoryImpl implements UserRepository {
             String userId = CreatedResponseUtil.getCreatedId(response);
             UserResource userResource = usersRessource.get(userId);
             userResource.resetPassword(passwordCred);
+            return true;
         } else if (response.getStatus() == 409) {
             throw new RuntimeException("Usuário já existe");
         }
+        return false;
     }
 
     private GroupResource getGroupResource(String group) {

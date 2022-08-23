@@ -16,6 +16,7 @@ public class CustomerMemoryRepositoryImpl implements CustomerRepository {
 
     public CustomerMemoryRepositoryImpl() {
         this.customers = List.of(
+                new Customer(0L, "Fluyt Cloud", "fluytcloud"),
                 new Customer(1L, "Grimpa Burguer", "grimpa"),
                 new Customer(2L, "Bombar Avenida", "bombar"),
                 new Customer(3L, "Gordão", "gordao")

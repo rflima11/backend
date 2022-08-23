@@ -3,6 +3,7 @@ CREATE TABLE CUSTOMER (
      SCHEMA_NAME bpchar(63) NOT NULL,
      COMPANY_NAME bpchar(100) NOT NULL,
      TRADE_NAME bpchar(100) NOT NULL,
+     EMAIL bpchar(100) NOT NULL,
      CNPJ bpchar(14) NOT NULL,
      CITY_ID INT NOT NULL,
      ADDRESS bpchar(100) NOT NULL,

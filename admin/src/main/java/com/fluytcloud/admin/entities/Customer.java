@@ -13,6 +13,7 @@ public class Customer {
     private String district;
     private String complement;
     private String phoneNumber;
+    private String email;
 
     public static CustomerBuilder builder() {
         return new CustomerBuilder();
@@ -77,6 +78,11 @@ public class Customer {
             return this;
         }
 
+        public CustomerBuilder email(String email) {
+            this.customer.email = email;
+            return this;
+        }
+
         public Customer build() {
             return this.customer;
         }
@@ -125,6 +131,10 @@ public class Customer {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
 }

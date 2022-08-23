@@ -4,16 +4,18 @@ import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.repositories.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class UserService {
 
-    @Inject
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public void create(User user) {
-        userRepository.create(user);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public boolean create(User user) {
+        return userRepository.create(user);
     }
 
 }
