@@ -38,14 +38,14 @@ public class CompanyService {
                 .stream()
                 .anyMatch(it -> it.name().equals(schemaName));
         if (exists) {
-            return getByIdentifier(schemaName);
+            return getBySchemaName(schemaName);
         }
 
         return Optional.empty();
     }
 
-    public Optional<Company> getByIdentifier(String identifier) {
-        return customerService.getBySchemaName(identifier)
+    public Optional<Company> getBySchemaName(String schemaName) {
+        return customerService.getBySchemaName(schemaName)
                 .map(it -> new Company(it.id(), it.name(), it.identifier()));
     }
 
