@@ -26,7 +26,7 @@ public class CustomerMapper {
                 .addressNumber(request.getAddressNumber())
                 .district(request.getDistrict())
                 .complement(request.getComplement())
-                .schemaName(StringUtil.stripAccents(request.getTradeName()))
+                .schemaName(StringUtil.stripAccents(request.getCompanyName()))
                 .cityId(request.getCityId())
                 .build();
     }

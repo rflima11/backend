@@ -17,4 +17,17 @@ public class GroupService {
     public boolean create(Group group) {
         return groupRepository.create(group);
     }
+
+    public boolean exists(String groupName) {
+        return groupRepository.exists(groupName);
+    }
+
+    public boolean exists(String groupName, String subGroupName) {
+        return groupRepository.exists(groupName, subGroupName);
+    }
+
+    public void addSubGroup(String groupName, String subGroupName) {
+        groupRepository.addSubGroup(groupName, subGroupName);
+    }
+
 }

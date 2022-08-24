@@ -22,7 +22,7 @@ public class GroupRepositoryImpl extends KeycloakConnection implements GroupRepo
     public boolean create(Group group) {
         GroupRepresentation groupRepresentation = new GroupRepresentation();
         groupRepresentation.setName(group.name());
-        groupRepresentation.setPath("/" + group);
+        groupRepresentation.setPath(group.name());
         Response response = this.groupsResource.add(groupRepresentation);
         var groupId = CreatedResponseUtil.getCreatedId(response);
 
@@ -30,15 +30,62 @@ public class GroupRepositoryImpl extends KeycloakConnection implements GroupRepo
 
         group.subGroups()
                 .stream()
-                .map(subGroup -> {
-                    var subGroupRepresentation = new GroupRepresentation();
-                    subGroupRepresentation.setName(subGroup.name());
-                    subGroupRepresentation.setPath("/" + group.name() + "/" + subGroup);
-                    return subGroupRepresentation;
-                })
+                .map(subGroup -> getGroupRepresentation(group.name(), subGroup.name()))
                 .forEach(groupKeycloak::subGroup);
 
         return response.getStatus() == 201;
+    }
+
+    private GroupRepresentation getGroupRepresentation(String groupName, String subGroupName) {
+        var subGroupRepresentation = new GroupRepresentation();
+        subGroupRepresentation.setName(subGroupName);
+        subGroupRepresentation.setPath(groupName + "/" + subGroupName);
+        return subGroupRepresentation;
+    }
+
+    @Override
+    public boolean exists(String groupName) {
+        var groups = groupsResource.groups(
+                groupName,
+                0,
+                1
+        );
+        return !groups.isEmpty();
+    }
+
+    @Override
+    public boolean exists(String groupName, String subGroupName) {
+        var groups = groupsResource.groups(
+                groupName,
+                0,
+                1
+        );
+        if (groups.isEmpty()) {
+            return false;
+        }
+
+        return groups.get(0).getSubGroups()
+                .stream()
+                .anyMatch(subGroup -> subGroup.getName().equals(subGroupName));
+    }
+
+    @Override
+    public void addSubGroup(String groupName, String subGroupName) {
+        var groups = groupsResource.groups(
+                groupName,
+                0,
+                1
+        );
+        if (groups.isEmpty()) {
+            throw new RuntimeException("Grupo não existe");
+        }
+        var groupRepresentation = groups.get(0);
+
+
+        var subGroupRepresentation = getGroupRepresentation(groupName, subGroupName);
+        var subGroups = groupRepresentation.getSubGroups();
+        subGroups.add(subGroupRepresentation);
+        groupRepresentation.setSubGroups(subGroups);
     }
 
 }

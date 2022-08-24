@@ -10,10 +10,8 @@ import com.fluytcloud.auth.interactors.UserService;
 import com.fluytcloud.migration.interactors.MigrationUseCase;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 @ApplicationScoped
 public class CustomerPersistUseCase {
@@ -36,21 +34,69 @@ public class CustomerPersistUseCase {
 
     public void create(Customer customer) {
         customerRepository.create(customer);
-
-        var subGroups = Stream.of(StringUtil.stripAccents(customer.getAddress()))
-                .map(it -> new Group(it, Collections.emptyList()))
-                .toList();
-
-        var group = new Group(customer.getSchemaName(), subGroups);
-        groupService.create(group);
-
-        userService.create(new User(
-                customer.getEmail(),
-                customer.getTradeName(),
-                List.of(group)
-        ));
-
+        var groupPersist = new GroupPersist(customer);
+        createUser(customer, groupPersist);
         migrationUseCase.migration(customer.getSchemaName());
+    }
+
+    private void createUser(Customer customer, GroupPersist groupPersist) {
+        var userExists = userService.existsByUsername(customer.getEmail());
+        if (userExists) {
+            var groupPath = groupPersist.getGroupPath();
+            userService.addGroups(customer.getEmail(), groupPath);
+        } else {
+            userService.create(new User(
+                    customer.getEmail(),
+                    customer.getTradeName(),
+                    List.of(groupPersist.getGroup())
+            ));
+        }
+    }
+
+    private class GroupPersist {
+
+        private final Customer customer;
+
+        public GroupPersist(Customer customer) {
+            this.customer = customer;
+            persist();
+        }
+
+        private String getGroupName() {
+            return customer.getSchemaName();
+        }
+
+        private String getSubGroupName() {
+            return StringUtil.stripAccents(customer.getTradeName());
+        }
+
+        private String getGroupPath() {
+            var groupName = getGroupName();
+            var subGroupName = getSubGroupName();
+            return groupName + "/" + subGroupName;
+        }
+
+        private Group getGroup() {
+            var groupName = getGroupName();
+            var subGroupName = getSubGroupName();
+            var subGroup = new Group(subGroupName, Collections.emptyList());
+            return new Group(groupName, List.of(subGroup));
+        }
+
+        private void persist() {
+            var subGroupName = getSubGroupName();
+            var groupName = getGroupName();
+
+            if (!groupService.exists(groupName, subGroupName)) {
+                if (groupService.exists(groupName)) {
+                    groupService.addSubGroup(groupName, subGroupName);
+                } else {
+                    var group = getGroup();
+                    groupService.create(group);
+                }
+            }
+        }
+
     }
 
 }

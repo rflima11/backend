@@ -4,6 +4,8 @@ import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.repositories.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class UserService {
@@ -16,6 +18,22 @@ public class UserService {
 
     public boolean create(User user) {
         return userRepository.create(user);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public void setGroups(String username, String... groupsPath) {
+        userRepository.setGroups(username, List.of(groupsPath));
+    }
+
+    public void addGroups(String username, String... groupsPath) {
+        userRepository.addGroups(username, List.of(groupsPath));
     }
 
 }

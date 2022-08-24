@@ -6,4 +6,9 @@ public interface GroupRepository {
 
     boolean create(Group group);
 
+    boolean exists(String groupName);
+
+    boolean exists(String groupName, String subGroupName);
+
+    void addSubGroup(String groupName, String subGroupName);
 }

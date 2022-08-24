@@ -12,7 +12,7 @@ public class CustomerModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "SCHEMA_NAME", length = 63, nullable = false)
+    @Column(name = "SCHEMA_NAME", length = 63, nullable = false, unique = true)
     private String schemaName;
 
     @Column(name = "COMPANY_NAME", length = 100, nullable = false)

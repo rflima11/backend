@@ -9,34 +9,40 @@ import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
 import io.quarkus.security.identity.SecurityIdentity;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.Optional;
 
 @ApplicationScoped
 public class UserInfoService {
 
-    @Inject
-    SessionService sessionService;
+    private final SessionService sessionService;
 
-    @Inject
-    SecurityIdentity securityIdentity;
+    private final SecurityIdentity securityIdentity;
 
-    @Inject
-    UserInfoRepository userInfoRepository;
+    private final UserInfoRepository userInfoRepository;
 
-    @Inject
-    CompanyService companyService;
+    private final CompanyService companyService;
+
+    public UserInfoService(
+            SessionService sessionService,
+            SecurityIdentity securityIdentity,
+            UserInfoRepository userInfoRepository,
+            CompanyService companyService) {
+        this.sessionService = sessionService;
+        this.securityIdentity = securityIdentity;
+        this.userInfoRepository = userInfoRepository;
+        this.companyService = companyService;
+    }
 
     private void set(UserInfo userInfo) {
         userInfoRepository.setBySessionId(sessionService.getSessionId(), userInfo);
         UserInfoContext.setCurrentTenant(userInfo);
     }
 
-    public void set(String identifier) {
+    public void set(String schemaName) {
         var name = ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getClaim("name").toString();
         var username = securityIdentity.getPrincipal().getName();
 
-        var userInfo = companyService.getUserCompanyByIdentifier(identifier)
+        var userInfo = companyService.getUserCompanyBySchemaName(schemaName)
                 .map(it -> new UserInfo(name, username, it))
                 .orElseThrow(AccessDeniedException::new);
 

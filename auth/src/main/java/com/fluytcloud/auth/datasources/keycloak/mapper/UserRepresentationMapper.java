@@ -25,7 +25,7 @@ public class UserRepresentationMapper {
         List<String> subGroups = new ArrayList<>();
         for (Group group : user.getGroups()) {
             for (Group subGroup : group.subGroups()) {
-                subGroups.add("/" + group.name() + "/" + subGroup.name());
+                subGroups.add(group.name() + "/" + subGroup.name());
             }
         }
 

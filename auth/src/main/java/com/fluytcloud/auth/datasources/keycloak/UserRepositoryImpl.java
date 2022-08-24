@@ -4,12 +4,10 @@ import com.fluytcloud.auth.datasources.keycloak.mapper.UserRepresentationMapper;
 import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.repositories.UserRepository;
 import org.keycloak.admin.client.CreatedResponseUtil;
-import org.keycloak.admin.client.resource.GroupResource;
 import org.keycloak.admin.client.resource.GroupsResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +27,7 @@ public class UserRepositoryImpl extends KeycloakConnection implements UserReposi
         usersRessource = getRealmResource().users();
     }
 
+    @Override
     public boolean create(User user) {
         UserRepresentation userRepresentation = MAPPER.map(user);
 
@@ -49,14 +48,43 @@ public class UserRepositoryImpl extends KeycloakConnection implements UserReposi
         return false;
     }
 
+    @Override
     public Optional<User> findByUsername(String username) {
         var usersRepresentation = usersRessource.search(username);
         if (usersRepresentation.isEmpty()) {
             return Optional.empty();
         }
         var userRepresentation = usersRepresentation.get(0);
+
         var user = MAPPER.map(userRepresentation);
         return Optional.of(user);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        var usersRepresentation = usersRessource.search(username);
+        return !usersRepresentation.isEmpty();
+    }
+
+    private UserRepresentation getByUsername(String username) {
+        var usersRepresentation = usersRessource.search(username);
+        if (usersRepresentation.isEmpty()) {
+            throw new RuntimeException("Usuário não existe");
+        }
+        return usersRepresentation.get(0);
+    }
+
+    @Override
+    public void setGroups(String username, List<String> groupsPath) {
+        var user = getByUsername(username);
+        user.setGroups(groupsPath);
+    }
+
+    @Override
+    public void addGroups(String username, List<String> groupsPath) {
+        var user = getByUsername(username);
+        groupsPath.addAll(user.getGroups());
+        user.setGroups(groupsPath);
     }
 
     /*private GroupResource getGroupResource(String group) {
