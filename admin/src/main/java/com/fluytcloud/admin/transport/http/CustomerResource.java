@@ -5,6 +5,7 @@ import com.fluytcloud.admin.interactors.CustomerService;
 import com.fluytcloud.admin.transport.mapper.CustomerMapper;
 import com.fluytcloud.admin.transport.request.CustomerRequest;
 import com.fluytcloud.admin.transport.response.CustomerListResponse;
+import com.fluytcloud.admin.transport.response.CustomerResponse;
 import io.quarkus.security.Authenticated;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Optional;
 
 @Path("/api/admin/customer")
 @Authenticated
@@ -36,11 +38,19 @@ public class CustomerResource {
         return new PageImpl<>(
                 pageable.getContent()
                         .stream()
-                        .map(CUSTOMER_MAPPER::map)
+                        .map(CUSTOMER_MAPPER::mapResponseList)
                         .toList(),
                 pageable.getPageable(),
                 pageable.getTotalElements()
         );
+    }
+
+    @GET
+    @Path("{id}")
+    @RolesAllowed("administrator")
+    public Optional<CustomerResponse> findById(@PathParam("id") Integer id) {
+        return customerService.findById(id)
+                .map(CUSTOMER_MAPPER::mapResponse);
     }
 
     @POST

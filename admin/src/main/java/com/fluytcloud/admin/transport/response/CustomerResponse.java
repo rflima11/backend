@@ -1,6 +1,6 @@
-package com.fluytcloud.admin.transport.request;
+package com.fluytcloud.admin.transport.response;
 
-public record CustomerRequest(
+public record CustomerResponse(
         String companyName,
         String tradeName,
         String cnpj,

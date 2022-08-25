@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,10 @@ public class CustomerService {
 
     public Page<Customer> findAll(Pageable pageable) {
         return customerRepository.findAll(pageable);
+    }
+
+    public Optional<Customer> findById(Integer id) {
+        return customerRepository.findById(id);
     }
 
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class CustomerRelationalRepositoryImpl implements CustomerRepository {
@@ -41,6 +42,13 @@ public class CustomerRelationalRepositoryImpl implements CustomerRepository {
                 page.getPageable(),
                 page.getTotalElements()
         );
+    }
+
+    @Override
+    @Transactional
+    public Optional<Customer> findById(Integer id) {
+        return customerJpaRepository.findById(id)
+                .map(CUSTOMER_MODEL_MAPPER::map);
     }
 
     @Override
