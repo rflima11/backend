@@ -16,6 +16,6 @@ public interface CustomerRepository {
 
     Optional<Customer> findById(Integer id);
 
-    void create(Customer customer);
+    Customer create(Customer customer);
 
 }

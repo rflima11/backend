@@ -18,6 +18,7 @@ public class CustomerMapper {
 
     public CustomerResponse mapResponse(Customer customer) {
         return new CustomerResponse(
+                customer.getId(),
                 customer.getCompanyName(),
                 customer.getTradeName(),
                 customer.getCnpj(),
@@ -35,9 +36,9 @@ public class CustomerMapper {
         return new Customer.CustomerBuilder()
                 .companyName(request.companyName())
                 .tradeName(request.tradeName())
-                .phoneNumber(request.phoneNumber())
+                .phoneNumber(request.phoneNumber().replaceAll("\\D", ""))
                 .email(request.email())
-                .cnpj(request.cnpj())
+                .cnpj(request.cnpj().replaceAll("\\D", ""))
                 .address(request.address())
                 .addressNumber(request.addressNumber())
                 .district(request.district())

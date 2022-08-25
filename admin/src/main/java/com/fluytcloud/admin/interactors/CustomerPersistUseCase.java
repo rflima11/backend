@@ -32,11 +32,12 @@ public class CustomerPersistUseCase {
         this.migrationUseCase = migrationUseCase;
     }
 
-    public void create(Customer customer) {
-        customerRepository.create(customer);
+    public Customer create(Customer customer) {
+        customer = customerRepository.create(customer);
         var groupPersist = new GroupPersist(customer);
         createUser(customer, groupPersist);
         migrationUseCase.migration(customer.getSchemaName());
+        return customer;
     }
 
     private void createUser(Customer customer, GroupPersist groupPersist) {

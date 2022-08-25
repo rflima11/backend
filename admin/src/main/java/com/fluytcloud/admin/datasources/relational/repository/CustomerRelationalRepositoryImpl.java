@@ -53,9 +53,10 @@ public class CustomerRelationalRepositoryImpl implements CustomerRepository {
 
     @Override
     @Transactional
-    public void create(Customer customer) {
+    public Customer create(Customer customer) {
         var model = CUSTOMER_MODEL_MAPPER.map(customer);
-        customerJpaRepository.save(model);
+        model = customerJpaRepository.save(model);
+        return CUSTOMER_MODEL_MAPPER.map(model);
     }
 
 }

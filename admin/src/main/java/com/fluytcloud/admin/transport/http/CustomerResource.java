@@ -1,5 +1,6 @@
 package com.fluytcloud.admin.transport.http;
 
+import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.interactors.CustomerPersistUseCase;
 import com.fluytcloud.admin.interactors.CustomerService;
 import com.fluytcloud.admin.transport.mapper.CustomerMapper;
@@ -55,9 +56,10 @@ public class CustomerResource {
 
     @POST
     @RolesAllowed("administrator")
-    public void create(CustomerRequest customerRequest) {
+    public CustomerResponse create(CustomerRequest customerRequest) {
         var customer = CUSTOMER_MAPPER.map(customerRequest);
-        customerPersistUseCase.create(customer);
+        customer = customerPersistUseCase.create(customer);
+        return CUSTOMER_MAPPER.mapResponse(customer);
     }
 
 }
