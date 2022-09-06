@@ -6,7 +6,7 @@ services:
     container_name: postgres-app
     restart: unless-stopped
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ~/Documentos/docker/postgres_data:/var/lib/postgresql/data
     env_file:
       - ./app-postgres.env
     ports:
@@ -16,5 +16,5 @@ services:
       
 volumes:
   postgres_data:
-    name: keycloak_postgres_data
+#    name: keycloak_postgres_data
     driver: local
