@@ -11,7 +11,7 @@ public class KeycloakConnection {
 
     public KeycloakConnection() {
         Keycloak keycloak = KeycloakBuilder.builder()
-                .serverUrl("https://auth.fluytcloud.com")
+                .serverUrl("http://localhost:18080")
                 .realm("restaurante")
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .clientId("app-backend")
