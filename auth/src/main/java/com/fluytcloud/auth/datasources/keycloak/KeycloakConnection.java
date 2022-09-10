@@ -10,6 +10,7 @@ public class KeycloakConnection {
     private final RealmResource realmResource;
 
     public KeycloakConnection() {
+        // todo ler url do keycloak das properties
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl("http://localhost:18080")
                 .realm("restaurante")
