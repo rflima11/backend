@@ -3,16 +3,13 @@ package com.fluycloud.support.datasources.relational.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "FILIAL")
-public class FilialModel {
+@Table(name = "COMPANY")
+public class CompanyModel {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "COMPANY_ID", nullable = false)
-    private Integer companyId;
 
     @Column(name = "COMPANY_NAME", length = 100, nullable = false)
     private String companyName;
@@ -57,17 +54,8 @@ public class FilialModel {
         return id;
     }
 
-    public FilialModel setId(Integer id) {
+    public CompanyModel setId(Integer id) {
         this.id = id;
-        return this;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public FilialModel setCompanyId(Integer companyId) {
-        this.companyId = companyId;
         return this;
     }
 
@@ -75,7 +63,7 @@ public class FilialModel {
         return companyName;
     }
 
-    public FilialModel setCompanyName(String companyName) {
+    public CompanyModel setCompanyName(String companyName) {
         this.companyName = companyName;
         return this;
     }
@@ -84,7 +72,7 @@ public class FilialModel {
         return tradeName;
     }
 
-    public FilialModel setTradeName(String tradeName) {
+    public CompanyModel setTradeName(String tradeName) {
         this.tradeName = tradeName;
         return this;
     }
@@ -93,7 +81,7 @@ public class FilialModel {
         return cnpj;
     }
 
-    public FilialModel setCnpj(String cnpj) {
+    public CompanyModel setCnpj(String cnpj) {
         this.cnpj = cnpj;
         return this;
     }
@@ -102,7 +90,7 @@ public class FilialModel {
         return cityId;
     }
 
-    public FilialModel setCityId(Integer cityId) {
+    public CompanyModel setCityId(Integer cityId) {
         this.cityId = cityId;
         return this;
     }
@@ -111,7 +99,7 @@ public class FilialModel {
         return zipCode;
     }
 
-    public FilialModel setZipCode(String zipCode) {
+    public CompanyModel setZipCode(String zipCode) {
         this.zipCode = zipCode;
         return this;
     }
@@ -120,7 +108,7 @@ public class FilialModel {
         return address;
     }
 
-    public FilialModel setAddress(String address) {
+    public CompanyModel setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -129,7 +117,7 @@ public class FilialModel {
         return addressNumber;
     }
 
-    public FilialModel setAddressNumber(String addressNumber) {
+    public CompanyModel setAddressNumber(String addressNumber) {
         this.addressNumber = addressNumber;
         return this;
     }
@@ -138,7 +126,7 @@ public class FilialModel {
         return district;
     }
 
-    public FilialModel setDistrict(String district) {
+    public CompanyModel setDistrict(String district) {
         this.district = district;
         return this;
     }
@@ -147,7 +135,7 @@ public class FilialModel {
         return complement;
     }
 
-    public FilialModel setComplement(String complement) {
+    public CompanyModel setComplement(String complement) {
         this.complement = complement;
         return this;
     }
@@ -156,7 +144,7 @@ public class FilialModel {
         return phoneNumber;
     }
 
-    public FilialModel setPhoneNumber(String phoneNumber) {
+    public CompanyModel setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -165,7 +153,7 @@ public class FilialModel {
         return email;
     }
 
-    public FilialModel setEmail(String email) {
+    public CompanyModel setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -174,7 +162,7 @@ public class FilialModel {
         return stateRegister;
     }
 
-    public FilialModel setStateRegister(String stateRegister) {
+    public CompanyModel setStateRegister(String stateRegister) {
         this.stateRegister = stateRegister;
         return this;
     }
@@ -183,7 +171,7 @@ public class FilialModel {
         return municipalRegister;
     }
 
-    public FilialModel setMunicipalRegister(String municipalRegister) {
+    public CompanyModel setMunicipalRegister(String municipalRegister) {
         this.municipalRegister = municipalRegister;
         return this;
     }

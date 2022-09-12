@@ -1,8 +1,7 @@
 package com.fluycloud.support.entities;
 
-public class Filial {
+public class Company {
     private Integer id;
-    private Integer companyId;
     private String companyName;
     private String tradeName;
     private String cnpj;
@@ -23,95 +22,84 @@ public class Filial {
 
     public static class FilialBuilder {
 
-        private final Filial filial = new Filial();
+        private final Company company = new Company();
 
         public FilialBuilder id(Integer id) {
-            this.filial.id = id;
+            this.company.id = id;
             return this;
         }
-
-        public FilialBuilder companyId(Integer companyId) {
-            this.filial.companyId = companyId;
-            return this;
-        }
-
         public FilialBuilder companyName(String companyName) {
-            this.filial.companyName = companyName;
+            this.company.companyName = companyName;
             return this;
         }
 
         public FilialBuilder tradeName(String tradeName) {
-            this.filial.tradeName = tradeName;
+            this.company.tradeName = tradeName;
             return this;
         }
 
         public FilialBuilder cnpj(String cnpj) {
-            this.filial.cnpj = cnpj;
+            this.company.cnpj = cnpj;
             return this;
         }
 
         public FilialBuilder cityId(Integer cityId) {
-            this.filial.cityId = cityId;
+            this.company.cityId = cityId;
             return this;
         }
 
         public FilialBuilder zipCode(String zipCode) {
-            this.filial.zipCode = zipCode;
+            this.company.zipCode = zipCode;
             return this;
         }
 
         public FilialBuilder address(String address) {
-            this.filial.address = address;
+            this.company.address = address;
             return this;
         }
 
         public FilialBuilder addressNumber(String addressNumber) {
-            this.filial.addressNumber = addressNumber;
+            this.company.addressNumber = addressNumber;
             return this;
         }
 
         public FilialBuilder district(String district) {
-            this.filial.district = district;
+            this.company.district = district;
             return this;
         }
 
         public FilialBuilder complement(String complement) {
-            this.filial.complement = complement;
+            this.company.complement = complement;
             return this;
         }
 
         public FilialBuilder phoneNumber(String phoneNumber) {
-            this.filial.phoneNumber = phoneNumber;
+            this.company.phoneNumber = phoneNumber;
             return this;
         }
 
         public FilialBuilder email(String email) {
-            this.filial.email = email;
+            this.company.email = email;
             return this;
         }
 
         public FilialBuilder stateRegister(String stateRegister) {
-            this.filial.stateRegister = stateRegister;
+            this.company.stateRegister = stateRegister;
             return this;
         }
 
         public FilialBuilder municipalRegister(String municipalRegister) {
-            this.filial.municipalRegister = municipalRegister;
+            this.company.municipalRegister = municipalRegister;
             return this;
         }
 
-        public Filial build() {
-            return this.filial;
+        public Company build() {
+            return this.company;
         }
-
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
     }
 
     public String getCompanyName() {
