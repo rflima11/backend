@@ -15,6 +15,7 @@
     <module>rest</module>
     <module>migration</module>
     <module>admin</module>
+    <module>support</module>
   </modules>
 
   <properties>
