@@ -3,6 +3,7 @@ package com.fluytcloud.admin.datasources.relational.repository;
 import com.fluytcloud.admin.datasources.relational.mapper.CustomerModelMapper;
 import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.repositories.CustomerRepository;
+import com.fluytcloud.admin.entities.exception.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -59,4 +60,15 @@ public class CustomerRelationalRepositoryImpl implements CustomerRepository {
         return CUSTOMER_MODEL_MAPPER.map(model);
     }
 
+    @Override
+    public void changeActive(Integer id) {
+        if (!customerJpaRepository.existsById(id)) {
+            throw new NotFoundException();
+        }
+        if (customerJpaRepository.isActive(id)) {
+            customerJpaRepository.deactivate(id);
+        } else {
+            customerJpaRepository.activate(id);
+        }
+    }
 }

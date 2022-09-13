@@ -34,5 +34,8 @@ public class CustomerService {
         return customerRepository.findById(id);
     }
 
+    public void changeActive(Integer id) {
+        customerRepository.changeActive(id);
+    }
 
 }

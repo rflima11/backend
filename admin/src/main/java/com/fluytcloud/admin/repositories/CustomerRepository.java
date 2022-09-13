@@ -18,4 +18,6 @@ public interface CustomerRepository {
 
     Customer create(Customer customer);
 
+    void changeActive(Integer id);
+
 }
