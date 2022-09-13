@@ -12,7 +12,8 @@ public class CustomerMapper {
         return new CustomerListResponse(
                 customer.getId(),
                 customer.getCompanyName(),
-                customer.getTradeName()
+                customer.getTradeName(),
+                customer.getActive()
         );
     }
 
@@ -28,7 +29,8 @@ public class CustomerMapper {
                 customer.getDistrict(),
                 customer.getComplement(),
                 customer.getPhoneNumber(),
-                customer.getEmail()
+                customer.getEmail(),
+                customer.getActive()
         );
     }
 
@@ -45,6 +47,7 @@ public class CustomerMapper {
                 .complement(request.complement())
                 .schemaName(StringUtil.stripAccents(request.companyName()))
                 .cityId(request.cityId())
+                .active(request.active())
                 .build();
     }
 

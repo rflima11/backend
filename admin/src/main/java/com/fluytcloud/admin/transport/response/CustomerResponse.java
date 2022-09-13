@@ -11,6 +11,7 @@ public record CustomerResponse(
         String district,
         String complement,
         String phoneNumber,
-        String email
+        String email,
+        boolean active
 ) {
 }

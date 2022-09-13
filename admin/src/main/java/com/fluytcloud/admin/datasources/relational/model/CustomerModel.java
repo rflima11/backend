@@ -45,6 +45,9 @@ public class CustomerModel {
     @Column(name = "PHONE_NUMBER", length = 15, nullable = false)
     private String phoneNumber;
 
+    @Column(name = "ACTIVE", nullable = false)
+    private Boolean active;
+
     public Integer getId() {
         return id;
     }
@@ -150,6 +153,15 @@ public class CustomerModel {
 
     public CustomerModel setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public CustomerModel setActive(Boolean active) {
+        this.active = active;
         return this;
     }
 

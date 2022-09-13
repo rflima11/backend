@@ -1,5 +1,7 @@
 package com.fluytcloud.admin.entities;
 
+import java.util.Objects;
+
 public class Customer {
 
     private Integer id;
@@ -14,6 +16,7 @@ public class Customer {
     private String complement;
     private String phoneNumber;
     private String email;
+    private Boolean active;
 
     public static CustomerBuilder builder() {
         return new CustomerBuilder();
@@ -83,6 +86,11 @@ public class Customer {
             return this;
         }
 
+        public CustomerBuilder active(Boolean active) {
+            this.customer.active = active;
+            return this;
+        }
+
         public Customer build() {
             return this.customer;
         }
@@ -137,4 +145,22 @@ public class Customer {
         return email;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        return Objects.equals(id, customer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

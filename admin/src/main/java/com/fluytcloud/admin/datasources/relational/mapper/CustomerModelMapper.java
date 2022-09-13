@@ -19,6 +19,7 @@ public class CustomerModelMapper {
                 .addressNumber(customerModel.getAddressNumber())
                 .district(customerModel.getDistrict())
                 .complement(customerModel.getComplement())
+                .active(customerModel.getActive())
                 .build();
     }
 
@@ -35,7 +36,8 @@ public class CustomerModelMapper {
                 .setAddress(customer.getAddress())
                 .setAddressNumber(customer.getAddressNumber())
                 .setDistrict(customer.getDistrict())
-                .setComplement(customer.getComplement());
+                .setComplement(customer.getComplement())
+                .setActive(customer.getActive());
     }
 
 }
