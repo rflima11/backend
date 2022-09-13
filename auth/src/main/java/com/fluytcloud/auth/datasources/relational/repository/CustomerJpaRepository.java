@@ -9,8 +9,8 @@ import java.util.Set;
 
 public interface CustomerJpaRepository extends JpaRepository<CustomerModel, Integer> {
 
-    List<CustomerModel> findBySchemaNameIn(Set<String> schemasName);
+    List<CustomerModel> findBySchemaNameInAndActive(Set<String> schemasName, Boolean active);
 
-    Optional<CustomerModel> getBySchemaName(String schemaName);
+    Optional<CustomerModel> getBySchemaNameAndActive(String schemaName, Boolean active);
 
 }

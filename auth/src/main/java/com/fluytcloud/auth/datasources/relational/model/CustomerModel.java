@@ -18,6 +18,9 @@ public class CustomerModel {
     @Column(name = "TRADE_NAME", length = 100, nullable = false)
     private String tradeName;
 
+    @Column(name = "ACTIVE", nullable = false)
+    private Boolean active;
+
     public Integer getId() {
         return id;
     }
@@ -42,6 +45,15 @@ public class CustomerModel {
 
     public CustomerModel setTradeName(String tradeName) {
         this.tradeName = tradeName;
+        return this;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public CustomerModel setActive(Boolean active) {
+        this.active = active;
         return this;
     }
 

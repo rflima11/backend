@@ -21,7 +21,7 @@ public class CustomerRelationalRepositoryImpl implements CustomerRepository {
 
     @Override
     public Set<Customer> findBySchemasName(Set<String> schemasName) {
-        return customerJpaRepository.findBySchemaNameIn(schemasName)
+        return customerJpaRepository.findBySchemaNameInAndActive(schemasName, true)
                 .stream()
                 .map(CUSTOMER_MODEL_MAPPER::map)
                 .collect(Collectors.toSet());
@@ -29,7 +29,7 @@ public class CustomerRelationalRepositoryImpl implements CustomerRepository {
 
     @Override
     public Optional<Customer> getBySchemaName(String schemaName) {
-        return customerJpaRepository.getBySchemaName(schemaName)
+        return customerJpaRepository.getBySchemaNameAndActive(schemaName, true)
                 .map(CUSTOMER_MODEL_MAPPER::map);
     }
 
