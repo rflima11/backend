@@ -9,6 +9,7 @@ public class Customer {
     private String companyName;
     private String tradeName;
     private String cnpj;
+    private String cep;
     private Integer cityId;
     private String address;
     private String addressNumber;
@@ -48,6 +49,11 @@ public class Customer {
 
         public CustomerBuilder cnpj(String cnpj) {
             this.customer.cnpj = cnpj;
+            return this;
+        }
+
+        public CustomerBuilder cep(String cep) {
+            this.customer.cep = cep;
             return this;
         }
 
@@ -115,6 +121,10 @@ public class Customer {
 
     public String getCnpj() {
         return cnpj;
+    }
+
+    public String getCep() {
+        return cep;
     }
 
     public Integer getCityId() {

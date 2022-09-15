@@ -23,6 +23,7 @@ public class CustomerMapper {
                 customer.getCompanyName(),
                 customer.getTradeName(),
                 customer.getCnpj(),
+                customer.getCep(),
                 customer.getCityId(),
                 customer.getAddress(),
                 customer.getAddressNumber(),
@@ -46,6 +47,7 @@ public class CustomerMapper {
                 .district(request.district())
                 .complement(request.complement())
                 .schemaName(StringUtil.stripAccents(request.companyName()))
+                .cep(request.cep().replaceAll("\\D", ""))
                 .cityId(request.cityId())
                 .active(request.active())
                 .build();
