@@ -16,6 +16,7 @@
     <module>migration</module>
     <module>admin</module>
     <module>support</module>
+    <module>core</module>
   </modules>
 
   <properties>

@@ -13,6 +13,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -83,7 +84,9 @@ public class UserRepositoryImpl extends KeycloakConnection implements UserReposi
     @Override
     public void addGroups(String username, List<String> groupsPath) {
         var user = getByUsername(username);
-        groupsPath.addAll(user.getGroups());
+        if (Objects.nonNull(user.getGroups()) && !user.getGroups().isEmpty()) {
+            groupsPath.addAll(user.getGroups());
+        }
         user.setGroups(groupsPath);
     }
 

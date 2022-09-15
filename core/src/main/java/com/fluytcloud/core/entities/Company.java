@@ -1,4 +1,6 @@
-package com.fluytcloud.auth.entities;
+package com.fluytcloud.core.entities;
 
 public record Company(Integer id, String name, String identifier) {
+
+
 }

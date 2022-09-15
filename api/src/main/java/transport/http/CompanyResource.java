@@ -4,12 +4,14 @@ import com.fluycloud.support.interactors.CompanyService;
 import com.fluytcloud.auth.transport.http.exception.NoContentException;
 import io.quarkus.security.Authenticated;
 import transport.mapper.CompanyMapper;
+import transport.request.CompanyRequest;
 import transport.response.CompanyListResponse;
 import transport.response.CompanyResponse;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/api/v1/company")
@@ -42,5 +44,14 @@ public class CompanyResource {
         return companyService.findById(id)
                 .map(COMPANY_MAPPER::mapResponse)
                 .orElseThrow(() -> new NoContentException(COMPANY_NOT_FOUND));
+    }
+
+    @POST
+    @RolesAllowed({"administrator", "manager"})
+    public Response create(CompanyRequest companyRequest) {
+        var company = COMPANY_MAPPER.map(companyRequest);
+        company = companyService.create(company);
+        return Response.ok(COMPANY_MAPPER.mapResponse(company)).build();
+
     }
 }

@@ -22,4 +22,8 @@ public class CompanyService {
     public Optional<Company> findById(Integer id) {
         return companyRepository.findById(id);
     }
+
+    public Company create(Company company) {
+        return companyRepository.persist(company);
+    }
 }

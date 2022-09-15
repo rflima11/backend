@@ -1,7 +1,7 @@
 package com.fluytcloud.auth.datasources.memory;
 
-import com.fluytcloud.auth.entities.UserInfo;
 import com.fluytcloud.auth.repositories.UserInfoRepository;
+import com.fluytcloud.core.entities.UserInfo;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Map;

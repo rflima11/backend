@@ -1,9 +1,9 @@
 package com.fluytcloud.auth.interactors;
 
-import com.fluytcloud.auth.entities.UserInfo;
-import com.fluytcloud.auth.entities.UserInfoContext;
 import com.fluytcloud.auth.repositories.UserInfoRepository;
 import com.fluytcloud.auth.transport.http.exception.AccessDeniedException;
+import com.fluytcloud.core.entities.UserInfo;
+import com.fluytcloud.core.entities.UserInfoContext;
 import com.fluytcloud.security.interactors.SessionService;
 import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
 import io.quarkus.security.identity.SecurityIdentity;

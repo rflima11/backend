@@ -1,6 +1,6 @@
 package com.fluytcloud.auth.interactors;
 
-import com.fluytcloud.auth.entities.Company;
+import com.fluytcloud.core.entities.Company;
 import com.fluytcloud.security.entities.Group;
 import com.fluytcloud.security.interactors.GroupService;
 

@@ -1,6 +1,6 @@
 package com.fluytcloud.auth.repositories;
 
-import com.fluytcloud.auth.entities.UserInfo;
+import com.fluytcloud.core.entities.UserInfo;
 
 import java.util.Optional;
 

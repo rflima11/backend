@@ -1,9 +1,9 @@
 package com.fluytcloud.auth.transport.http.resource;
 
-import com.fluytcloud.auth.entities.UserInfoContext;
 import com.fluytcloud.auth.interactors.UserInfoService;
 import com.fluytcloud.auth.transport.http.mapper.UserInfoMapper;
 import com.fluytcloud.auth.transport.http.response.UserInfoResponse;
+import com.fluytcloud.core.entities.UserInfoContext;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

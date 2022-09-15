@@ -1,6 +1,7 @@
 package com.fluytcloud.auth.transport.http.filter;
 
-import com.fluytcloud.auth.entities.UserInfoContext;
+
+import com.fluytcloud.core.entities.UserInfoContext;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

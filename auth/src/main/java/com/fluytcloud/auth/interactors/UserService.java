@@ -4,8 +4,7 @@ import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.repositories.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @ApplicationScoped
 public class UserService {
@@ -33,7 +32,7 @@ public class UserService {
     }
 
     public void addGroups(String username, String... groupsPath) {
-        userRepository.addGroups(username, List.of(groupsPath));
+        userRepository.addGroups(username, Arrays.asList(groupsPath));
     }
 
 }

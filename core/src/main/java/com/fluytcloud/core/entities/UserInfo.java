@@ -1,4 +1,4 @@
-package com.fluytcloud.auth.entities;
+package com.fluytcloud.core.entities;
 
 public record UserInfo(String name, String username, Company company) {
 }
