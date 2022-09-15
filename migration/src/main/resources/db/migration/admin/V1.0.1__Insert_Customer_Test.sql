@@ -1,2 +1,2 @@
-INSERT INTO CUSTOMER (EMAIL, SCHEMA_NAME, COMPANY_NAME, TRADE_NAME, CNPJ, CITY_ID, ADDRESS, ADDRESS_NUMBER, DISTRICT, COMPLEMENT, PHONE_NUMBER)
-VALUES ('gasparbarancelli@gmail.com', 'empresa_teste', 'Empresa Teste', 'Teste', '05072696000185', 3044, 'Rua Tocantins', '2582', 'Centro', 'Apartamento 503', '46984074773');
+INSERT INTO CUSTOMER (CEP, EMAIL, SCHEMA_NAME, COMPANY_NAME, TRADE_NAME, CNPJ, CITY_ID, ADDRESS, ADDRESS_NUMBER, DISTRICT, COMPLEMENT, PHONE_NUMBER, ACTIVE)
+VALUES ('85501292', 'gasparbarancelli@gmail.com', 'empresa_teste', 'Empresa Teste', 'Teste', '05072696000185', 3044, 'Rua Tocantins', '2582', 'Centro', 'Apartamento 503', '46984074773', true);

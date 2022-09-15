@@ -5,6 +5,7 @@ public record CustomerResponse(
         String companyName,
         String tradeName,
         String cnpj,
+        String cep,
         Integer cityId,
         String address,
         String addressNumber,

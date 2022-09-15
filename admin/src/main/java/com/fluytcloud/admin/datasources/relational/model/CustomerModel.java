@@ -27,6 +27,9 @@ public class CustomerModel {
     @Column(name = "EMAIL", length = 100, nullable = false)
     private String email;
 
+    @Column(name = "CEP", length = 8, nullable = false)
+    private String cep;
+
     @Column(name = "CITY_ID", nullable = false)
     private Integer cityId;
 
@@ -99,6 +102,15 @@ public class CustomerModel {
 
     public CustomerModel setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public CustomerModel setCep(String cep) {
+        this.cep = cep;
         return this;
     }
 
