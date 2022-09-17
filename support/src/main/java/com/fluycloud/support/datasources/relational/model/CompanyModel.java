@@ -5,7 +5,12 @@ import com.fluycloud.support.entities.City;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "COMPANY")
+@Table(name = "COMPANY",
+        uniqueConstraints = {
+        @UniqueConstraint(
+                name = "UNIQUE_CNPJ", columnNames = "CNPJ"
+        )}
+)
 public class CompanyModel {
 
     @Id

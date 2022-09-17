@@ -1,6 +1,8 @@
 package transport.http;
 
+import com.fluycloud.support.entities.DuplicatedCnpj;
 import com.fluycloud.support.interactors.CompanyService;
+import com.fluytcloud.auth.transport.http.exception.DuplicatedRecord;
 import com.fluytcloud.auth.transport.http.exception.NoContentException;
 import io.quarkus.security.Authenticated;
 import transport.mapper.CompanyMapper;
@@ -50,8 +52,11 @@ public class CompanyResource {
     @RolesAllowed({"administrator", "manager"})
     public Response create(CompanyRequest companyRequest) {
         var company = COMPANY_MAPPER.map(companyRequest);
-        company = companyService.create(company);
-        return Response.ok(COMPANY_MAPPER.mapResponse(company)).build();
-
+        try {
+            company = companyService.create(company);
+            return Response.ok(COMPANY_MAPPER.mapResponse(company)).build();
+        } catch (DuplicatedCnpj exception) {
+            throw new DuplicatedRecord(exception.getMessage());
+        }
     }
 }
