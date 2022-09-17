@@ -5,7 +5,7 @@ public class Company {
     private String companyName;
     private String tradeName;
     private String cnpj;
-    private Integer cityId;
+    private City city;
     private String zipCode;
     private String address;
     private String addressNumber;
@@ -43,8 +43,8 @@ public class Company {
             return this;
         }
 
-        public FilialBuilder cityId(Integer cityId) {
-            this.company.cityId = cityId;
+        public FilialBuilder city(City city) {
+            this.company.city = city;
             return this;
         }
 
@@ -114,8 +114,8 @@ public class Company {
         return cnpj;
     }
 
-    public Integer getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
     public String getZipCode() {

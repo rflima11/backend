@@ -22,7 +22,7 @@ public class CompanyMapper {
                 company.getCompanyName(),
                 company.getTradeName(),
                 company.getCnpj(),
-                company.getCityId(),
+                CityMapper.map(company.getCity()),
                 company.getZipCode(),
                 company.getAddress(),
                 company.getAddressNumber(),
@@ -37,10 +37,11 @@ public class CompanyMapper {
 
     public Company map(CompanyRequest request) {
         return Company.builder()
+                .id(request.id())
                 .companyName(request.companyName())
                 .tradeName(request.tradeName())
                 .cnpj(request.cnpj().replaceAll("\\D", ""))
-                .cityId(request.cityId())
+                .city(CityMapper.map(request.city()))
                 .zipCode(request.zipCode())
                 .address(request.address())
                 .addressNumber(request.addressNumber())

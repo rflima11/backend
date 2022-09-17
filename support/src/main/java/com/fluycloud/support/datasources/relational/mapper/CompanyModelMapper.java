@@ -1,6 +1,8 @@
 package com.fluycloud.support.datasources.relational.mapper;
 
+import com.fluycloud.support.datasources.relational.model.CityModel;
 import com.fluycloud.support.datasources.relational.model.CompanyModel;
+import com.fluycloud.support.entities.City;
 import com.fluycloud.support.entities.Company;
 
 public interface CompanyModelMapper {
@@ -13,7 +15,7 @@ public interface CompanyModelMapper {
                 .companyName(companyModel.getCompanyName())
                 .tradeName(companyModel.getTradeName())
                 .phoneNumber(companyModel.getPhoneNumber())
-                .cityId(companyModel.getCityId())
+                .city(CityMapper.map(companyModel.getCity()))
                 .zipCode(companyModel.getZipCode())
                 .email(companyModel.getEmail())
                 .cnpj(companyModel.getCnpj())
@@ -32,7 +34,7 @@ public interface CompanyModelMapper {
                 .setPhoneNumber(company.getPhoneNumber())
                 .setCompanyName(company.getCompanyName())
                 .setTradeName(company.getTradeName())
-                .setCityId(company.getCityId())
+                .setCity(CityMapper.map(company.getCity()))
                 .setZipCode(company.getZipCode())
                 .setEmail(company.getEmail())
                 .setCnpj(company.getCnpj())

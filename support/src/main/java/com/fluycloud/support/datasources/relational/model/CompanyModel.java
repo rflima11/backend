@@ -1,5 +1,7 @@
 package com.fluycloud.support.datasources.relational.model;
 
+import com.fluycloud.support.entities.City;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,8 +22,9 @@ public class CompanyModel {
     @Column(name = "CNPJ", length = 14, nullable = false)
     private String cnpj;
 
-    @Column(name = "CITY_ID", nullable = false)
-    private Integer cityId;
+    @ManyToOne
+    @JoinColumn(name = "CITY_ID", nullable = false)
+    private CityModel city;
 
     @Column(name = "ZIP_CODE", length = 8)
     private String zipCode;
@@ -86,12 +89,12 @@ public class CompanyModel {
         return this;
     }
 
-    public Integer getCityId() {
-        return cityId;
+    public CityModel getCity() {
+        return city;
     }
 
-    public CompanyModel setCityId(Integer cityId) {
-        this.cityId = cityId;
+    public CompanyModel setCity(CityModel city) {
+        this.city = city;
         return this;
     }
 

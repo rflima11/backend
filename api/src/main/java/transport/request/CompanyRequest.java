@@ -1,10 +1,13 @@
 package transport.request;
 
+import transport.response.CityRequest;
+
 public record CompanyRequest(
+        Integer id,
         String companyName,
         String tradeName,
         String cnpj,
-        Integer cityId,
+        CityRequest city,
         String zipCode,
         String address,
         String addressNumber,

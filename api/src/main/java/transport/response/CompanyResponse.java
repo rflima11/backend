@@ -1,11 +1,13 @@
 package transport.response;
 
+import com.fluycloud.support.entities.City;
+
 public record CompanyResponse(
         Integer id,
         String companyName,
         String tradeName,
         String cnpj,
-        Integer cityId,
+        CityResponse city,
         String zipCode,
         String address,
         String addressNumber,
