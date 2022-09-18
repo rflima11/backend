@@ -4,19 +4,19 @@ import com.fluycloud.support.entities.DuplicatedCnpjException;
 import com.fluycloud.support.entities.EntityNotFound;
 import com.fluycloud.support.interactors.PersonService;
 import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
+import com.fluytcloud.api.transport.exception.NoContentException;
 import com.fluytcloud.api.transport.exception.NotFoundException;
 import com.fluytcloud.api.transport.mapper.PersonMapper;
 import com.fluytcloud.api.transport.request.PersonRequest;
-import com.fluytcloud.api.transport.response.PersonListResponse;
 import com.fluytcloud.api.transport.response.PersonResponse;
-import com.fluytcloud.api.transport.exception.NoContentException;
 import io.quarkus.security.Authenticated;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("/api/v1/person")
 @Authenticated
@@ -35,11 +35,17 @@ public class PersonResource {
 
     @GET
     @RolesAllowed({"administrator", "manager"})
-    public List<PersonListResponse> findAll() {
-        return personService.findAll()
-                .stream()
-                .map(PERSON_MAPPER::mapResponseList)
-                .toList();
+    public Response findAll(@QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        var pageable = personService.findAll(PageRequest.of(page, size));
+        var pagination = new PageImpl<>(
+                pageable.getContent()
+                        .stream()
+                        .map(PERSON_MAPPER::mapResponseList)
+                        .toList(),
+                pageable.getPageable(),
+                pageable.getTotalElements()
+        );
+        return Response.ok(pagination).build();
     }
 
     @GET
@@ -73,6 +79,18 @@ public class PersonResource {
             return Response.ok(PERSON_MAPPER.mapResponse(person)).build();
         } catch (DuplicatedCnpjException exception) {
             throw new DuplicatedRecordException(exception.getMessage());
+        } catch (EntityNotFound notFoundException) {
+            throw new NotFoundException(notFoundException.getMessage());
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    @RolesAllowed({"administrator", "manager"})
+    public Response delete(@PathParam("id") Integer id) {
+        try {
+            personService.delete(id);
+            return Response.noContent().build();
         } catch (EntityNotFound notFoundException) {
             throw new NotFoundException(notFoundException.getMessage());
         }
