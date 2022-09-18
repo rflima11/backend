@@ -1,14 +1,16 @@
 package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.entities.DuplicatedCnpjException;
+import com.fluycloud.support.entities.EntityNotFound;
 import com.fluycloud.support.interactors.PersonService;
-import com.fluytcloud.auth.transport.http.exception.DuplicatedRecord;
-import com.fluytcloud.auth.transport.http.exception.NoContentException;
-import io.quarkus.security.Authenticated;
+import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
+import com.fluytcloud.api.transport.exception.NotFoundException;
 import com.fluytcloud.api.transport.mapper.PersonMapper;
 import com.fluytcloud.api.transport.request.PersonRequest;
 import com.fluytcloud.api.transport.response.PersonListResponse;
 import com.fluytcloud.api.transport.response.PersonResponse;
+import com.fluytcloud.api.transport.exception.NoContentException;
+import io.quarkus.security.Authenticated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -52,12 +54,27 @@ public class PersonResource {
     @POST
     @RolesAllowed({"administrator", "manager"})
     public Response create(PersonRequest personRequest) {
-        var company = PERSON_MAPPER.map(personRequest);
+        var person = PERSON_MAPPER.map(personRequest);
         try {
-            company = personService.create(company);
-            return Response.ok(PERSON_MAPPER.mapResponse(company)).build();
+            person = personService.create(person);
+            return Response.ok(PERSON_MAPPER.mapResponse(person)).build();
         } catch (DuplicatedCnpjException exception) {
-            throw new DuplicatedRecord(exception.getMessage());
+            throw new DuplicatedRecordException(exception.getMessage());
+        }
+    }
+
+    @PUT
+    @Path("{id}")
+    @RolesAllowed({"administrator", "manager"})
+    public Response update(@PathParam("id") Integer id, PersonRequest personRequest) {
+        var person = PERSON_MAPPER.map(personRequest, id);
+        try {
+            person = personService.update(person);
+            return Response.ok(PERSON_MAPPER.mapResponse(person)).build();
+        } catch (DuplicatedCnpjException exception) {
+            throw new DuplicatedRecordException(exception.getMessage());
+        } catch (EntityNotFound notFoundException) {
+            throw new NotFoundException(notFoundException.getMessage());
         }
     }
 

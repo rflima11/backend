@@ -4,7 +4,6 @@ import com.fluycloud.support.entities.PersonType;
 import com.fluytcloud.api.transport.response.CityRequest;
 
 public record PersonRequest(
-        Integer id,
         String name,
         PersonType type,
         String cpfCnpj,

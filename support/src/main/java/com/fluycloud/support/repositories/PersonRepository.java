@@ -13,4 +13,6 @@ public interface PersonRepository {
 
     Person persist(Person person);
 
+    boolean exists(Integer id);
+
 }

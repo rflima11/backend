@@ -6,4 +6,5 @@ public class DuplicatedCnpjException extends RuntimeException {
     public DuplicatedCnpjException() {
         super(MESSAGE);
     }
+
 }

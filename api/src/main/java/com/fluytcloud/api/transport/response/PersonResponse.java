@@ -6,7 +6,7 @@ public record PersonResponse(
         Integer id,
         String name,
         PersonType type,
-        String cnpj,
+        String cpfCnpj,
         CityResponse city,
         String zipCode,
         String address,

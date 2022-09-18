@@ -4,8 +4,8 @@ import com.fluycloud.support.entities.DuplicatedCnpjException;
 import com.fluycloud.support.interactors.CompanyService;
 import com.fluytcloud.api.transport.response.CompanyListResponse;
 import com.fluytcloud.api.transport.response.CompanyResponse;
-import com.fluytcloud.auth.transport.http.exception.DuplicatedRecord;
-import com.fluytcloud.auth.transport.http.exception.NoContentException;
+import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
+import com.fluytcloud.api.transport.exception.NoContentException;
 import io.quarkus.security.Authenticated;
 import com.fluytcloud.api.transport.mapper.CompanyMapper;
 import com.fluytcloud.api.transport.request.CompanyRequest;
@@ -56,7 +56,7 @@ public class CompanyResource {
             company = companyService.create(company);
             return Response.ok(COMPANY_MAPPER.mapResponse(company)).build();
         } catch (DuplicatedCnpjException exception) {
-            throw new DuplicatedRecord(exception.getMessage());
+            throw new DuplicatedRecordException(exception.getMessage());
         }
     }
 }

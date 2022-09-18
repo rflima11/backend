@@ -2,8 +2,8 @@ package com.fluytcloud.api.transport.mapper;
 
 import com.fluycloud.support.entities.Person;
 import com.fluytcloud.api.transport.request.PersonRequest;
-import com.fluytcloud.api.transport.response.PersonResponse;
 import com.fluytcloud.api.transport.response.PersonListResponse;
+import com.fluytcloud.api.transport.response.PersonResponse;
 
 public class PersonMapper {
 
@@ -33,9 +33,9 @@ public class PersonMapper {
         );
     }
 
-    public Person map(PersonRequest request) {
+    public Person map(PersonRequest request, Integer id) {
         return Person.builder()
-                .id(request.id())
+                .id(id)
                 .name(request.name())
                 .type(request.type())
                 .cpfCnpj(request.cpfCnpj().replaceAll("\\D", ""))
@@ -50,4 +50,9 @@ public class PersonMapper {
                 .referencePoint(request.referencePoint())
                 .build();
     }
+
+    public Person map(PersonRequest request) {
+        return map(request, null);
+    }
+
 }

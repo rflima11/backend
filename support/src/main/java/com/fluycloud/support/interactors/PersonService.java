@@ -1,6 +1,7 @@
 package com.fluycloud.support.interactors;
 
 import com.fluycloud.support.entities.DuplicatedCnpjException;
+import com.fluycloud.support.entities.EntityNotFound;
 import com.fluycloud.support.entities.Person;
 import com.fluycloud.support.repositories.PersonRepository;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -37,4 +38,11 @@ public class PersonService {
         }
     }
 
+    public Person update(Person person) {
+        var exists = personRepository.exists(person.getId());
+        if (!exists) {
+            throw new EntityNotFound("Person " + person.getId() + " not found");
+        }
+        return create(person);
+    }
 }

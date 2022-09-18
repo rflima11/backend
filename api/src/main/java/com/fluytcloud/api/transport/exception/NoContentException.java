@@ -1,4 +1,4 @@
-package com.fluytcloud.auth.transport.http.exception;
+package com.fluytcloud.api.transport.exception;
 
 import com.fluytcloud.rest.exception.RestException;
 

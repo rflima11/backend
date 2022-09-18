@@ -37,4 +37,9 @@ public class PersonRelatorioRepositoryImpl implements PersonRepository {
         return mapper.map(jpaRepository.save(mapper.map(person)));
     }
 
+    @Override
+    public boolean exists(Integer id) {
+        return jpaRepository.existsById(id);
+    }
+
 }

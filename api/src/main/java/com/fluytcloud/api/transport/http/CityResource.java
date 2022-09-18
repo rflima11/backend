@@ -2,7 +2,7 @@ package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.interactors.CityService;
 import com.fluytcloud.api.transport.response.CityResponse;
-import com.fluytcloud.auth.transport.http.exception.NoContentException;
+import com.fluytcloud.api.transport.exception.NoContentException;
 import io.quarkus.security.Authenticated;
 import com.fluytcloud.api.transport.mapper.CityMapper;
 
