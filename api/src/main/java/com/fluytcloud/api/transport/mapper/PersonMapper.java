@@ -1,9 +1,9 @@
-package transport.mapper;
+package com.fluytcloud.api.transport.mapper;
 
 import com.fluycloud.support.entities.Person;
-import transport.request.PersonRequest;
-import transport.response.PersonListResponse;
-import transport.response.PersonResponse;
+import com.fluytcloud.api.transport.request.PersonRequest;
+import com.fluytcloud.api.transport.response.PersonResponse;
+import com.fluytcloud.api.transport.response.PersonListResponse;
 
 public class PersonMapper {
 
@@ -40,7 +40,7 @@ public class PersonMapper {
                 .type(request.type())
                 .cpfCnpj(request.cpfCnpj().replaceAll("\\D", ""))
                 .city(CityMapper.map(request.city()))
-                .zipCode(request.zipCode())
+                .zipCode(request.zipCode().replaceAll("\\D", ""))
                 .address(request.address())
                 .addressNumber(request.addressNumber())
                 .district(request.district())

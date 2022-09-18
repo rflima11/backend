@@ -1,14 +1,14 @@
-package transport.http;
+package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.entities.DuplicatedCnpjException;
 import com.fluycloud.support.interactors.CompanyService;
+import com.fluytcloud.api.transport.response.CompanyListResponse;
+import com.fluytcloud.api.transport.response.CompanyResponse;
 import com.fluytcloud.auth.transport.http.exception.DuplicatedRecord;
 import com.fluytcloud.auth.transport.http.exception.NoContentException;
 import io.quarkus.security.Authenticated;
-import transport.mapper.CompanyMapper;
-import transport.request.CompanyRequest;
-import transport.response.CompanyListResponse;
-import transport.response.CompanyResponse;
+import com.fluytcloud.api.transport.mapper.CompanyMapper;
+import com.fluytcloud.api.transport.request.CompanyRequest;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;

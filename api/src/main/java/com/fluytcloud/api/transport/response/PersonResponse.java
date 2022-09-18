@@ -1,14 +1,13 @@
-package transport.request;
+package com.fluytcloud.api.transport.response;
 
 import com.fluycloud.support.entities.PersonType;
-import transport.response.CityRequest;
 
-public record PersonRequest(
+public record PersonResponse(
         Integer id,
         String name,
         PersonType type,
-        String cpfCnpj,
-        CityRequest city,
+        String cnpj,
+        CityResponse city,
         String zipCode,
         String address,
         String addressNumber,

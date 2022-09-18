@@ -1,9 +1,9 @@
-package transport.mapper;
+package com.fluytcloud.api.transport.mapper;
 
 import com.fluycloud.support.entities.Company;
-import transport.request.CompanyRequest;
-import transport.response.CompanyListResponse;
-import transport.response.CompanyResponse;
+import com.fluytcloud.api.transport.request.CompanyRequest;
+import com.fluytcloud.api.transport.response.CompanyListResponse;
+import com.fluytcloud.api.transport.response.CompanyResponse;
 
 public class CompanyMapper {
 

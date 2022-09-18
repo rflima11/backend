@@ -1,4 +1,4 @@
-package transport.response;
+package com.fluytcloud.api.transport.response;
 
 public record PersonListResponse(
         Integer id,

@@ -1,10 +1,10 @@
-package transport.http;
+package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.interactors.CityService;
+import com.fluytcloud.api.transport.response.CityResponse;
 import com.fluytcloud.auth.transport.http.exception.NoContentException;
 import io.quarkus.security.Authenticated;
-import transport.mapper.CityMapper;
-import transport.response.CityResponse;
+import com.fluytcloud.api.transport.mapper.CityMapper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

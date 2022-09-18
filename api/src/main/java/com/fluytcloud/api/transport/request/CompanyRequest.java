@@ -1,11 +1,13 @@
-package transport.response;
+package com.fluytcloud.api.transport.request;
 
-public record CompanyResponse(
+import com.fluytcloud.api.transport.response.CityRequest;
+
+public record CompanyRequest(
         Integer id,
         String companyName,
         String tradeName,
         String cnpj,
-        CityResponse city,
+        CityRequest city,
         String zipCode,
         String address,
         String addressNumber,
@@ -15,4 +17,4 @@ public record CompanyResponse(
         String email,
         String stateRegister,
         String municipalRegister
-) {}
+){}

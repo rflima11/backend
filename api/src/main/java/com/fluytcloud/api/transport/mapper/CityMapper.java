@@ -1,8 +1,8 @@
-package transport.mapper;
+package com.fluytcloud.api.transport.mapper;
 
 import com.fluycloud.support.entities.City;
-import transport.response.CityRequest;
-import transport.response.CityResponse;
+import com.fluytcloud.api.transport.response.CityRequest;
+import com.fluytcloud.api.transport.response.CityResponse;
 
 public class CityMapper {
 
