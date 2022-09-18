@@ -42,7 +42,7 @@ public class CompanyMapper {
                 .tradeName(request.tradeName())
                 .cnpj(request.cnpj().replaceAll("\\D", ""))
                 .city(CityMapper.map(request.city()))
-                .zipCode(request.zipCode())
+                .zipCode(request.zipCode().replaceAll("\\D", ""))
                 .address(request.address())
                 .addressNumber(request.addressNumber())
                 .district(request.district())
