@@ -1,5 +1,7 @@
 package com.fluycloud.support.entities;
 
+import java.util.Objects;
+
 public class Company {
     private Integer id;
     private String companyName;
@@ -152,5 +154,20 @@ public class Company {
 
     public String getMunicipalRegister() {
         return municipalRegister;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Company company = (Company) o;
+
+        return Objects.equals(id, company.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

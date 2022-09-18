@@ -1,8 +1,6 @@
 package com.fluycloud.support.datasources.relational.mapper;
 
-import com.fluycloud.support.datasources.relational.model.CityModel;
 import com.fluycloud.support.datasources.relational.model.CompanyModel;
-import com.fluycloud.support.entities.City;
 import com.fluycloud.support.entities.Company;
 
 public interface CompanyModelMapper {

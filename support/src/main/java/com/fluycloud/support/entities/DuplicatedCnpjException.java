@@ -1,9 +1,9 @@
 package com.fluycloud.support.entities;
 
-public class DuplicatedCnpj extends RuntimeException {
+public class DuplicatedCnpjException extends RuntimeException {
     private static final String MESSAGE = "CNPJ já cadastrado";
 
-    public DuplicatedCnpj() {
+    public DuplicatedCnpjException() {
         super(MESSAGE);
     }
 }
