@@ -12,7 +12,7 @@ public class KeycloakConnection {
     public KeycloakConnection() {
         // todo ler url do keycloak das properties
         Keycloak keycloak = KeycloakBuilder.builder()
-                .serverUrl("http://localhost:18080")
+                .serverUrl("http://192.168.2.110:18080")
                 .realm("restaurante")
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .clientId("app-backend")

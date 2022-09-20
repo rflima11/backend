@@ -1,5 +1,8 @@
 package com.fluytcloud.admin.interactors;
 
+import com.fluycloud.support.entities.City;
+import com.fluycloud.support.entities.Company;
+import com.fluycloud.support.interactors.CompanyService;
 import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.repositories.CustomerRepository;
 import com.fluytcloud.admin.util.StringUtil;
@@ -7,9 +10,14 @@ import com.fluytcloud.auth.entities.Group;
 import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.interactors.GroupService;
 import com.fluytcloud.auth.interactors.UserService;
+import com.fluytcloud.core.entities.UserInfo;
+import com.fluytcloud.core.entities.UserInfoContext;
 import com.fluytcloud.migration.interactors.MigrationUseCase;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,16 +28,24 @@ public class CustomerPersistUseCase {
     private final UserService userService;
     private final GroupService groupService;
     private final MigrationUseCase migrationUseCase;
+    private final CompanyService companyService;
+
+    @Inject EntityManager entityManager;
+
+    @Inject
+    DataSource dataSource;
 
     public CustomerPersistUseCase(
             CustomerRepository customerRepository,
             UserService userService,
             GroupService groupService,
-            MigrationUseCase migrationUseCase) {
+            MigrationUseCase migrationUseCase,
+            CompanyService companyService) {
         this.customerRepository = customerRepository;
         this.userService = userService;
         this.groupService = groupService;
         this.migrationUseCase = migrationUseCase;
+        this.companyService = companyService;
     }
 
     public Customer create(Customer customer) {
@@ -37,7 +53,39 @@ public class CustomerPersistUseCase {
         var groupPersist = new GroupPersist(customer);
         createUser(customer, groupPersist);
         migrationUseCase.migration(customer.getSchemaName());
+
+        var user = UserInfoContext.getCurrentUserInfo();
+        var newCompanyUser = new UserInfo(
+                user.name(),
+                user.username(),
+                new com.fluytcloud.core.entities.Company(
+                        customer.getId(),
+                        customer.getCompanyName(),
+                        customer.getSchemaName()
+                )
+        );
+        UserInfoContext.setCurrentTenant(newCompanyUser);
+
+        companyService.create(mapper(customer));
         return customer;
+    }
+
+    private Company mapper(Customer customer) {
+        return Company.builder()
+                .companyName(customer.getCompanyName())
+                .tradeName(customer.getTradeName())
+                .cnpj(customer.getCnpj())
+                .zipCode(customer.getCep())
+                .city(new City(customer.getCityId(), null, null))
+                .address(customer.getAddress())
+                .addressNumber(customer.getAddressNumber())
+                .district(customer.getDistrict())
+                .complement(customer.getComplement())
+                .phoneNumber(customer.getPhoneNumber())
+                .email(customer.getEmail())
+                .stateRegister("XXXXXX")
+                .municipalRegister("XXXXXXXXXXX")
+                .build();
     }
 
     private void createUser(Customer customer, GroupPersist groupPersist) {
@@ -68,7 +116,8 @@ public class CustomerPersistUseCase {
         }
 
         private String getSubGroupName() {
-            return StringUtil.stripAccents(customer.getTradeName());
+            //StringUtil.stripAccents(customer.getTradeName());
+            return customer.getCnpj().replaceAll("\\d", "");
         }
 
         private String getGroupPath() {
