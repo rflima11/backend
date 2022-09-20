@@ -1,31 +1,32 @@
 package com.fluycloud.support.datasources.relational.mapper;
 
+import com.fluycloud.support.core.CrudMapper;
 import com.fluycloud.support.datasources.relational.model.PersonModel;
 import com.fluycloud.support.entities.Person;
 
-public interface PersonModelMapper {
+public class PersonModelMapper implements CrudMapper<Person, PersonModel> {
 
-    PersonModelMapper INSTANCE = new PersonModelMapper() {};
-
-    default Person map(PersonModel personModel) {
+    @Override
+    public Person mapToEntity(PersonModel model) {
         return new Person.PersonBuilder()
-                .id(personModel.getId())
-                .name(personModel.getName())
-                .type(personModel.getType())
-                .phoneNumber(personModel.getPhoneNumber())
-                .city(CityMapper.map(personModel.getCity()))
-                .zipCode(personModel.getZipCode())
-                .email(personModel.getEmail())
-                .cpfCnpj(personModel.getCpfCnpj())
-                .address(personModel.getAddress())
-                .addressNumber(personModel.getAddressNumber())
-                .district(personModel.getDistrict())
-                .complement(personModel.getComplement())
-                .referencePoint(personModel.getReferencePoint())
+                .id(model.getId())
+                .name(model.getName())
+                .type(model.getType())
+                .phoneNumber(model.getPhoneNumber())
+                .city(CityMapper.map(model.getCity()))
+                .zipCode(model.getZipCode())
+                .email(model.getEmail())
+                .cpfCnpj(model.getCpfCnpj())
+                .address(model.getAddress())
+                .addressNumber(model.getAddressNumber())
+                .district(model.getDistrict())
+                .complement(model.getComplement())
+                .referencePoint(model.getReferencePoint())
                 .build();
     }
 
-    default PersonModel map(Person person) {
+    @Override
+    public PersonModel mapToModel(Person person) {
         return new PersonModel()
                 .setId(person.getId())
                 .setPhoneNumber(person.getPhoneNumber())

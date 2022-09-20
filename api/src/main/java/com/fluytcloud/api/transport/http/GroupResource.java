@@ -73,7 +73,7 @@ public class GroupResource {
     public Response update(@PathParam("id") Integer id, GroupRequest groupRequest) {
         var group = GroupMapper.map(id, groupRequest);
         try {
-            group = groupService.update(group);
+            group = groupService.update(id, group);
             return Response.ok(GroupMapper.map(group)).build();
         } catch (DuplicatedKeyException exception) {
             throw new DuplicatedRecordException(exception.getMessage());

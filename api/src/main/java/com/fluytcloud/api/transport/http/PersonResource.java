@@ -75,7 +75,7 @@ public class PersonResource {
     public Response update(@PathParam("id") Integer id, PersonRequest personRequest) {
         var person = PERSON_MAPPER.map(personRequest, id);
         try {
-            person = personService.update(person);
+            person = personService.update(id, person);
             return Response.ok(PERSON_MAPPER.mapResponse(person)).build();
         } catch (DuplicatedKeyException exception) {
             throw new DuplicatedRecordException(exception.getMessage());
