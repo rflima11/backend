@@ -1,6 +1,6 @@
 package com.fluytcloud.api.transport.http;
 
-import com.fluycloud.support.entities.DuplicatedCnpjException;
+import com.fluycloud.support.entities.DuplicatedKeyException;
 import com.fluycloud.support.interactors.CompanyService;
 import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
 import com.fluytcloud.api.transport.exception.NoContentException;
@@ -61,7 +61,7 @@ public class CompanyResource {
         try {
             company = companyService.create(company);
             return Response.ok(COMPANY_MAPPER.mapResponse(company)).build();
-        } catch (DuplicatedCnpjException exception) {
+        } catch (DuplicatedKeyException exception) {
             throw new DuplicatedRecordException(exception.getMessage());
         }
     }

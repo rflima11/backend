@@ -6,6 +6,7 @@ import com.fluytcloud.api.transport.response.CityResponse;
 
 public class CityMapper {
 
+    private CityMapper() {}
     public static CityResponse map(City city) {
         return new CityResponse(city.id(), city.name(), city.stateId());
     }

@@ -2,13 +2,13 @@ package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.entities.DuplicatedKeyException;
 import com.fluycloud.support.entities.EntityNotFoundException;
-import com.fluycloud.support.interactors.PersonService;
 import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
 import com.fluytcloud.api.transport.exception.NoContentException;
 import com.fluytcloud.api.transport.exception.NotFoundException;
-import com.fluytcloud.api.transport.mapper.PersonMapper;
-import com.fluytcloud.api.transport.request.PersonRequest;
-import com.fluytcloud.api.transport.response.PersonResponse;
+import com.fluytcloud.api.transport.mapper.GroupMapper;
+import com.fluytcloud.api.transport.request.GroupRequest;
+import com.fluytcloud.api.transport.response.GroupResponse;
+import com.fluytcloud.product.interactors.GroupService;
 import io.quarkus.security.Authenticated;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -18,29 +18,27 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/api/v1/person")
+@Path("/api/v1/group")
 @Authenticated
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PersonResource {
+public class GroupResource {
+    private static final String GROUP_NOT_FOUND = "Grupo não encontrado";
 
-    private static final PersonMapper PERSON_MAPPER = new PersonMapper();
-    private static final String PERSON_NOT_FOUND = "Pessoa não encontrada";
+    private final GroupService groupService;
 
-    private final PersonService personService;
-
-    public PersonResource(PersonService personService) {
-        this.personService = personService;
+    public GroupResource(GroupService groupService) {
+        this.groupService = groupService;
     }
 
     @GET
     @RolesAllowed({"administrator", "manager"})
     public Response findAll(@QueryParam("page") Integer page, @QueryParam("size") Integer size) {
-        var pageable = personService.findAll(PageRequest.of(page, size));
+        var pageable = groupService.findAll(PageRequest.of(page, size));
         var pagination = new PageImpl<>(
                 pageable.getContent()
                         .stream()
-                        .map(PERSON_MAPPER::mapResponseList)
+                        .map(GroupMapper::map)
                         .toList(),
                 pageable.getPageable(),
                 pageable.getTotalElements()
@@ -51,19 +49,19 @@ public class PersonResource {
     @GET
     @Path("{id}")
     @RolesAllowed({"administrator", "manager"})
-    public PersonResponse findById(@PathParam("id") Integer id) {
-        return personService.findById(id)
-                .map(PERSON_MAPPER::mapResponse)
-                .orElseThrow(() -> new NoContentException(PERSON_NOT_FOUND));
+    public GroupResponse findById(@PathParam("id") Integer id) {
+        return groupService.findById(id)
+                .map(GroupMapper::map)
+                .orElseThrow(() -> new NoContentException(GROUP_NOT_FOUND));
     }
 
     @POST
     @RolesAllowed({"administrator", "manager"})
-    public Response create(PersonRequest personRequest) {
-        var person = PERSON_MAPPER.map(personRequest);
+    public Response create(GroupRequest groupRequest) {
+        var group = GroupMapper.map(groupRequest);
         try {
-            person = personService.create(person);
-            return Response.ok(PERSON_MAPPER.mapResponse(person)).build();
+            group = groupService.create(group);
+            return Response.ok(GroupMapper.map(group)).build();
         } catch (DuplicatedKeyException exception) {
             throw new DuplicatedRecordException(exception.getMessage());
         }
@@ -72,15 +70,15 @@ public class PersonResource {
     @PUT
     @Path("{id}")
     @RolesAllowed({"administrator", "manager"})
-    public Response update(@PathParam("id") Integer id, PersonRequest personRequest) {
-        var person = PERSON_MAPPER.map(personRequest, id);
+    public Response update(@PathParam("id") Integer id, GroupRequest groupRequest) {
+        var group = GroupMapper.map(id, groupRequest);
         try {
-            person = personService.update(person);
-            return Response.ok(PERSON_MAPPER.mapResponse(person)).build();
+            group = groupService.update(group);
+            return Response.ok(GroupMapper.map(group)).build();
         } catch (DuplicatedKeyException exception) {
             throw new DuplicatedRecordException(exception.getMessage());
         } catch (EntityNotFoundException notFoundException) {
-            throw new NotFoundException(notFoundException.getMessage());
+            throw new com.fluytcloud.api.transport.exception.NotFoundException(notFoundException.getMessage());
         }
     }
 
@@ -89,7 +87,7 @@ public class PersonResource {
     @RolesAllowed({"administrator", "manager"})
     public Response delete(@PathParam("id") Integer id) {
         try {
-            personService.delete(id);
+            groupService.delete(id);
             return Response.noContent().build();
         } catch (EntityNotFoundException notFoundException) {
             throw new NotFoundException(notFoundException.getMessage());
@@ -97,3 +95,4 @@ public class PersonResource {
     }
 
 }
+

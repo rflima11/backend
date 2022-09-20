@@ -1,7 +1,7 @@
 package com.fluycloud.support.interactors;
 
-import com.fluycloud.support.entities.DuplicatedCnpjException;
-import com.fluycloud.support.entities.EntityNotFound;
+import com.fluycloud.support.entities.DuplicatedKeyException;
+import com.fluycloud.support.entities.EntityNotFoundException;
 import com.fluycloud.support.entities.Person;
 import com.fluycloud.support.repositories.PersonRepository;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -33,7 +33,7 @@ public class PersonService {
             return personRepository.persist(person);
         } catch (Exception exception) {
             if (ExceptionUtils.getStackTrace(exception).contains("ConstraintViolationException")) {
-                throw new DuplicatedCnpjException();
+                throw new DuplicatedKeyException("CPF/CNPJ já cadastrado");
             }
             throw exception;
         }
@@ -42,7 +42,7 @@ public class PersonService {
     public Person update(Person person) {
         var exists = personRepository.exists(person.getId());
         if (!exists) {
-            throw new EntityNotFound("Person " + person.getId() + " not found");
+            throw new EntityNotFoundException("Person " + person.getId() + " not found");
         }
         return create(person);
     }
@@ -50,7 +50,7 @@ public class PersonService {
     public void delete(Integer id) {
         var exists = personRepository.exists(id);
         if (!exists) {
-            throw new EntityNotFound("Person " + id + " not found");
+            throw new EntityNotFoundException("Person " + id + " not found");
         }
         personRepository.delete(id);
     }

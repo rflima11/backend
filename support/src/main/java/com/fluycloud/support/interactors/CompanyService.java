@@ -1,7 +1,7 @@
 package com.fluycloud.support.interactors;
 
 import com.fluycloud.support.entities.Company;
-import com.fluycloud.support.entities.DuplicatedCnpjException;
+import com.fluycloud.support.entities.DuplicatedKeyException;
 import com.fluycloud.support.repositories.CompanyRepository;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.data.domain.Page;
@@ -33,7 +33,7 @@ public class CompanyService {
         } catch (Exception exception) {
             if (ExceptionUtils.getStackTrace(exception)
                     .contains("ConstraintViolationException")) {
-                throw new DuplicatedCnpjException();
+                throw new DuplicatedKeyException("Cnpj já cadastrado");
             }
             throw exception;
         }
