@@ -17,6 +17,7 @@
     <module>admin</module>
     <module>support</module>
     <module>core</module>
+    <module>product</module>
   </modules>
 
   <properties>

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>support</artifactId>
+    <artifactId>product</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -22,17 +22,6 @@
             <groupId>com.fluytcloud</groupId>
             <artifactId>jpa</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.slf4j</groupId>
-            <artifactId>slf4j-jboss-logmanager</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
         </dependency>
     </dependencies>
 
