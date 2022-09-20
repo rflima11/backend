@@ -4,27 +4,30 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PRODUCT_GROUP",
+@Table(name = "PRODUCT_ADDITIONAL",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "UQ_PRODUCT_GROUP_NAME", columnNames = "NAME"
+                        name = "UQ_PRODUCT_ADDITIONAL_NAME", columnNames = "NAME"
                 )}
 )
-public class GroupModel {
+public class AdditionalModel {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "NAME", length = 50, nullable = false)
+    @Column(name = "NAME", length = 100, nullable = false)
     private String name;
+
+    @Column(name = "ENABLE", nullable = false)
+    private Boolean enable;
 
     public Integer getId() {
         return id;
     }
 
-    public GroupModel setId(Integer id) {
+    public AdditionalModel setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -33,8 +36,17 @@ public class GroupModel {
         return name;
     }
 
-    public GroupModel setName(String name) {
+    public AdditionalModel setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public AdditionalModel setEnable(Boolean enable) {
+        this.enable = enable;
         return this;
     }
 
@@ -43,7 +55,7 @@ public class GroupModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupModel that = (GroupModel) o;
+        AdditionalModel that = (AdditionalModel) o;
 
         return Objects.equals(id, that.id);
     }
