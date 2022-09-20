@@ -2,19 +2,19 @@ package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.entities.DuplicatedCnpjException;
 import com.fluycloud.support.interactors.CompanyService;
-import com.fluytcloud.api.transport.response.CompanyListResponse;
-import com.fluytcloud.api.transport.response.CompanyResponse;
 import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
 import com.fluytcloud.api.transport.exception.NoContentException;
-import io.quarkus.security.Authenticated;
 import com.fluytcloud.api.transport.mapper.CompanyMapper;
 import com.fluytcloud.api.transport.request.CompanyRequest;
+import com.fluytcloud.api.transport.response.CompanyResponse;
+import io.quarkus.security.Authenticated;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("/api/v1/company")
 @Authenticated
@@ -32,11 +32,17 @@ public class CompanyResource {
 
     @GET
     @RolesAllowed({"administrator", "manager"})
-    public List<CompanyListResponse> findAll() {
-        return companyService.findAll()
-                .stream()
-                .map(COMPANY_MAPPER::mapResponseList)
-                .toList();
+    public Response findAll(@QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        var pageable = companyService.findAll(PageRequest.of(page, size));
+        var pagination = new PageImpl<>(
+                pageable.getContent()
+                        .stream()
+                        .map(COMPANY_MAPPER::mapResponseList)
+                        .toList(),
+                pageable.getPageable(),
+                pageable.getTotalElements()
+        );
+        return Response.ok(pagination).build();
     }
 
     @GET
