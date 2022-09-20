@@ -15,9 +15,6 @@ import com.fluytcloud.core.entities.UserInfoContext;
 import com.fluytcloud.migration.interactors.MigrationUseCase;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,11 +26,6 @@ public class CustomerPersistUseCase {
     private final GroupService groupService;
     private final MigrationUseCase migrationUseCase;
     private final CompanyService companyService;
-
-    @Inject EntityManager entityManager;
-
-    @Inject
-    DataSource dataSource;
 
     public CustomerPersistUseCase(
             CustomerRepository customerRepository,
