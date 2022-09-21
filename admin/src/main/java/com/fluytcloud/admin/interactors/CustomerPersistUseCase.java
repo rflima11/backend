@@ -5,11 +5,11 @@ import com.fluycloud.support.entities.Company;
 import com.fluycloud.support.interactors.CompanyService;
 import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.repositories.CustomerRepository;
-import com.fluytcloud.admin.util.StringUtil;
 import com.fluytcloud.auth.entities.Group;
 import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.interactors.GroupService;
 import com.fluytcloud.auth.interactors.UserService;
+import com.fluytcloud.core.entities.Organization;
 import com.fluytcloud.core.entities.UserInfo;
 import com.fluytcloud.core.entities.UserInfoContext;
 import com.fluytcloud.migration.interactors.MigrationUseCase;
@@ -17,6 +17,7 @@ import com.fluytcloud.migration.interactors.MigrationUseCase;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class CustomerPersistUseCase {
@@ -50,11 +51,8 @@ public class CustomerPersistUseCase {
         var newCompanyUser = new UserInfo(
                 user.name(),
                 user.username(),
-                new com.fluytcloud.core.entities.Company(
-                        customer.getId(),
-                        customer.getCompanyName(),
-                        customer.getSchemaName()
-                )
+                new Organization(customer.getId(), customer.getCompanyName(), customer.getSchemaName()),
+                Optional.empty()
         );
         UserInfoContext.setCurrentTenant(newCompanyUser);
 
@@ -109,7 +107,7 @@ public class CustomerPersistUseCase {
 
         private String getSubGroupName() {
             //StringUtil.stripAccents(customer.getTradeName());
-            return customer.getCnpj().replaceAll("\\d", "");
+            return customer.getCnpj().replaceAll("\\D", "");
         }
 
         private String getGroupPath() {

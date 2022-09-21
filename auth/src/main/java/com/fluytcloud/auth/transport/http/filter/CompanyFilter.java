@@ -1,9 +1,10 @@
 package com.fluytcloud.auth.transport.http.filter;
 
 import com.fluytcloud.auth.interactors.CompanyService;
-import com.fluytcloud.auth.interactors.OrganizationService;
 import com.fluytcloud.auth.interactors.UserInfoService;
+import com.fluytcloud.auth.transport.http.exception.ChooseCompanyException;
 import com.fluytcloud.auth.transport.http.exception.ChooseOrganizationException;
+import com.fluytcloud.auth.transport.http.exception.EmptyCompanyException;
 import com.fluytcloud.auth.transport.http.exception.EmptyOrganizationException;
 import com.fluytcloud.core.entities.UserInfoContext;
 
@@ -21,9 +22,6 @@ public class CompanyFilter implements ContainerRequestFilter {
 
     @Inject
     CompanyService companyService;
-
-    @Inject
-    OrganizationService organizationService;
 
     private static final Predicate<ContainerRequestContext> ALLOWED_COMPANIES_ROUTE = value
             -> "/companies".equals(value.getUriInfo().getPath());
@@ -50,19 +48,27 @@ public class CompanyFilter implements ContainerRequestFilter {
             return;
         }
 
-        var organizations = organizationService.getUserOrganizations();
+        var organizations = companyService.getUserOrganizations();
         if (organizations.size() == 0) {
-            //throw new EmptyCompanyException();
             throw new EmptyOrganizationException();
         }
 
         if (organizations.size() > 1) {
-            //throw new ChooseCompanyException();
             throw new ChooseOrganizationException();
         }
 
+        var companies = companyService.getUserCompanies();
+        if (companies.isEmpty()) {
+            throw new EmptyCompanyException();
+        }
+
+        if (companies.size() > 1) {
+            throw new ChooseCompanyException();
+        }
+
         var organization = organizations.iterator().next();
-        userInfoService.set(organization.identifier());
+        var company = companies.iterator().next();
+        userInfoService.set(organization.identifier(), company);
     }
 
 }

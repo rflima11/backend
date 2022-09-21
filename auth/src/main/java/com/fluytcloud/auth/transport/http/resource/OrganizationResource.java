@@ -1,6 +1,6 @@
 package com.fluytcloud.auth.transport.http.resource;
 
-import com.fluytcloud.auth.interactors.OrganizationService;
+import com.fluytcloud.auth.interactors.CompanyService;
 import com.fluytcloud.auth.transport.http.response.OrganizationResponse;
 
 import javax.inject.Inject;
@@ -12,11 +12,11 @@ import java.util.List;
 public class OrganizationResource {
 
     @Inject
-    OrganizationService organizationService;
+    CompanyService companyService;
 
     @GET
     public List<OrganizationResponse> get() {
-        return organizationService.getUserOrganizations()
+        return companyService.getUserOrganizations()
                 .stream()
                 .map(it -> new OrganizationResponse(it.name(), it.identifier()))
                 .toList();

@@ -18,7 +18,7 @@ public class CompanyResource {
     public List<CompanyResponse> get() {
         return companyService.getUserCompanies()
                 .stream()
-                .map(it -> new CompanyResponse(it.name(), it.identifier()))
+                .map(it -> new CompanyResponse(it.id(), it.name()))
                 .toList();
     }
 

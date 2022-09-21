@@ -5,7 +5,7 @@ import com.fluytcloud.rest.exception.RestException;
 public class EmptyCompanyException extends RestException {
 
     public EmptyCompanyException() {
-        super(403, "Nenhuma empresa vinculada ao usuário");
+        super(403, "Nenhuma filial cadastrada");
     }
 
 }

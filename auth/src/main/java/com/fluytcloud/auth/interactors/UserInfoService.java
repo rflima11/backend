@@ -2,6 +2,7 @@ package com.fluytcloud.auth.interactors;
 
 import com.fluytcloud.auth.repositories.UserInfoRepository;
 import com.fluytcloud.auth.transport.http.exception.AccessDeniedException;
+import com.fluytcloud.core.entities.Company;
 import com.fluytcloud.core.entities.UserInfo;
 import com.fluytcloud.core.entities.UserInfoContext;
 import com.fluytcloud.security.interactors.SessionService;
@@ -39,14 +40,23 @@ public class UserInfoService {
     }
 
     public void set(String schemaName) {
+        set(schemaName, null);
+    }
+
+    public void set(String schemaName, Company company) {
         var name = ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getClaim("name").toString();
         var username = securityIdentity.getPrincipal().getName();
 
-        var userInfo = companyService.getUserCompanyBySchemaName(schemaName)
-                .map(it -> new UserInfo(name, username, it))
+        var userInfo = companyService.getUserOrganizationBySchemaName(schemaName)
+                .map(it -> new UserInfo(name, username, it, Optional.ofNullable(company)))
                 .orElseThrow(AccessDeniedException::new);
 
         set(userInfo);
+    }
+
+    public void setUserCompany(Company company) {
+        var userInfoOpt = get();
+        userInfoOpt.ifPresent(userInfo -> set(userInfo.organization().identifier(), company));
     }
 
     public void delete() {

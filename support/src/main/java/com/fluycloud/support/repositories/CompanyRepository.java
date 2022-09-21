@@ -14,4 +14,5 @@ public interface CompanyRepository {
 
     Company persist(Company company);
 
+    Optional<Company> findByCnpj(String cnpj);
 }
