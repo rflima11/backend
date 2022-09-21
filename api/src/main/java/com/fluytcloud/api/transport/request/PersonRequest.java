@@ -1,7 +1,6 @@
 package com.fluytcloud.api.transport.request;
 
 import com.fluycloud.support.entities.PersonType;
-import com.fluytcloud.api.transport.response.CityRequest;
 
 public record PersonRequest(
         String name,

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CityJpaRepository extends JpaRepository<CityModel, Integer> {
-    List<CityModel> findByNameContainingIgnoreCaseIgnoreCase(String name);
+    List<CityModel> findByNameContainingIgnoreCase(String name);
 }
