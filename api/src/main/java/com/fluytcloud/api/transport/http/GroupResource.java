@@ -71,9 +71,13 @@ public class GroupResource {
     @Path("{id}")
     @RolesAllowed({"administrator", "manager"})
     public Response update(@PathParam("id") Integer id, GroupRequest groupRequest) {
-        var group = GroupMapper.map(id, groupRequest);
+        if (!groupRequest.id().equals(id)) {
+            throw new IllegalArgumentException();
+        }
+
+        var group = GroupMapper.map(groupRequest);
         try {
-            group = groupService.update(id, group);
+            group = groupService.update(groupRequest.id(), group);
             return Response.ok(GroupMapper.map(group)).build();
         } catch (DuplicatedKeyException exception) {
             throw new DuplicatedRecordException(exception.getMessage());

@@ -4,20 +4,30 @@ import com.fluytcloud.api.transport.request.GroupRequest;
 import com.fluytcloud.api.transport.response.GroupResponse;
 import com.fluytcloud.product.entities.Group;
 
+import java.util.HashSet;
+
 public class GroupMapper {
 
     private GroupMapper() {}
 
     public static Group map(GroupRequest request) {
-        return map(null, request);
-    }
+        var group = new Group(request.id(), request.name(), null, new HashSet<>(request.subgroups().size()));
 
-    public static Group map(Integer id, GroupRequest request) {
-        return new Group(id, request.name());
+        for (GroupRequest subgroup : request.subgroups()) {
+            group.subgroups().add(new Group(subgroup.id(), subgroup.name(), group, null));
+        }
+
+        return group;
     }
 
     public static GroupResponse map(Group group) {
-        return new GroupResponse(group.id(), group.name());
+        var groupResponse = new GroupResponse(group.id(), group.name(), new HashSet<>(group.subgroups().size()));
+
+        for (Group subgroup : group.subgroups()) {
+            groupResponse.subgroups().add(new GroupResponse(subgroup.id(), subgroup.name(), null));
+        }
+
+        return groupResponse;
     }
 
 }
