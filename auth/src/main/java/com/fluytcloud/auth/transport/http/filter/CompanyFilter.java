@@ -57,12 +57,17 @@ public class CompanyFilter implements ContainerRequestFilter {
             var userInfo = userInfoOpt.get();
             UserInfoContext.setCurrentTenant(userInfo);
 
-            if (userInfo.company().isPresent()) {
+            if (userInfoService.isAdmin() || userInfo.company().isPresent()) {
                 return;
             }
 
             var company = companyValidate();
-            userInfoService.set(userInfo.organization().identifier(), company);
+            userInfoService.set(userInfo.organization().orElseThrow().identifier(), company);
+            return;
+        }
+
+        if (userInfoService.isAdmin()) {
+            userInfoService.set();
             return;
         }
 

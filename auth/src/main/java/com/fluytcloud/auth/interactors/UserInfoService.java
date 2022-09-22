@@ -43,12 +43,23 @@ public class UserInfoService {
         set(schemaName, null);
     }
 
+    public void set() {
+        if (!isAdmin()) {
+            throw new AccessDeniedException();
+        }
+
+        var name = ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getClaim("name").toString();
+        var username = securityIdentity.getPrincipal().getName();
+        var userInfo = new UserInfo(name, username, Optional.empty(), Optional.empty());
+        set(userInfo);
+    }
+
     public void set(String schemaName, Company company) {
         var name = ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getClaim("name").toString();
         var username = securityIdentity.getPrincipal().getName();
 
         var userInfo = companyService.getUserOrganizationBySchemaName(schemaName)
-                .map(it -> new UserInfo(name, username, it, Optional.ofNullable(company)))
+                .map(it -> new UserInfo(name, username, Optional.of(it), Optional.ofNullable(company)))
                 .orElseThrow(AccessDeniedException::new);
 
         set(userInfo);
@@ -56,7 +67,11 @@ public class UserInfoService {
 
     public void setUserCompany(Company company) {
         var userInfoOpt = get();
-        userInfoOpt.ifPresent(userInfo -> set(userInfo.organization().identifier(), company));
+        userInfoOpt.ifPresent(userInfo -> set(userInfo.organization().orElseThrow().identifier(), company));
+    }
+
+    public boolean isAdmin() {
+        return securityIdentity.getRoles().contains("administrator");
     }
 
     public void delete() {

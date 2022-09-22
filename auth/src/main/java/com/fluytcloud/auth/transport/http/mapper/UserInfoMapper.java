@@ -9,7 +9,7 @@ public class UserInfoMapper {
         return new UserInfoResponse(
                 userInfo.name(),
                 userInfo.username(),
-                userInfo.organization().name()
+                userInfo.organization().isPresent() ? userInfo.organization().get().name() : null
         );
     }
 

@@ -48,10 +48,11 @@ public class CustomerPersistUseCase {
         migrationUseCase.migration(customer.getSchemaName());
 
         var user = UserInfoContext.getCurrentUserInfo();
+        var organization = new Organization(customer.getId(), customer.getCompanyName(), customer.getSchemaName());
         var newCompanyUser = new UserInfo(
                 user.name(),
                 user.username(),
-                new Organization(customer.getId(), customer.getCompanyName(), customer.getSchemaName()),
+                Optional.of(organization),
                 Optional.empty()
         );
         UserInfoContext.setCurrentTenant(newCompanyUser);

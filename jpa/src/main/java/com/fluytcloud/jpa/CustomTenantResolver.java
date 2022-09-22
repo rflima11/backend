@@ -14,8 +14,8 @@ public class CustomTenantResolver implements TenantResolver {
     @Override
     public String resolveTenantId() {
         var currentUser = UserInfoContext.getCurrentUserInfo();
-        if (Objects.nonNull(currentUser)) {
-            return currentUser.organization().identifier();
+        if (Objects.nonNull(currentUser) && currentUser.organization().isPresent()) {
+            return currentUser.organization().get().identifier();
         }
 
         return getDefaultTenantId();
