@@ -1,6 +1,6 @@
 package com.fluytcloud.core.entities;
 
-public record Company(Integer id, String name, String identifier) {
+public record Company(Integer id, String name) {
 
 
 }

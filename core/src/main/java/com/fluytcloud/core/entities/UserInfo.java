@@ -1,4 +1,6 @@
 package com.fluytcloud.core.entities;
 
-public record UserInfo(String name, String username, Company company) {
+import java.util.Optional;
+
+public record UserInfo(String name, String username, Organization organization, Optional<Company> company) {
 }

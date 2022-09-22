@@ -15,7 +15,7 @@ public class CustomTenantResolver implements TenantResolver {
     public String resolveTenantId() {
         var currentUser = UserInfoContext.getCurrentUserInfo();
         if (Objects.nonNull(currentUser)) {
-            return currentUser.company().identifier();
+            return currentUser.organization().identifier();
         }
 
         return getDefaultTenantId();

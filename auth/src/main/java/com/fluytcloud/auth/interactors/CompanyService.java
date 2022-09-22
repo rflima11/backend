@@ -1,13 +1,18 @@
 package com.fluytcloud.auth.interactors;
 
 import com.fluytcloud.core.entities.Company;
+import com.fluytcloud.core.entities.Organization;
 import com.fluytcloud.security.entities.Group;
 import com.fluytcloud.security.interactors.GroupService;
+import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
 
 @ApplicationScoped
 public class CompanyService {
@@ -16,25 +21,36 @@ public class CompanyService {
 
     private final GroupService groupService;
 
-    public CompanyService(CustomerService customerService, GroupService groupService) {
+    private final com.fluycloud.support.interactors.CompanyService customerCompanyService;
+
+    public CompanyService(CustomerService customerService, GroupService groupService, com.fluycloud.support.interactors.CompanyService customerCompanyService) {
         this.customerService = customerService;
         this.groupService = groupService;
+        this.customerCompanyService = customerCompanyService;
     }
 
-    public Set<Company> getUserCompanies() {
-        var identifiers= groupService.getUserCompanies()
+    public Set<Organization> getUserOrganizations() {
+        var identifiers= groupService.getUserOrganizations()
                 .stream()
                 .map(Group::name)
                 .collect(Collectors.toSet());
 
         return customerService.findBySchemasName(identifiers)
                 .stream()
-                .map(it -> new Company(it.id(), it.name(), it.identifier()))
+                .map(it -> new Organization(it.id(), it.name(), it.identifier()))
                 .collect(Collectors.toSet());
     }
 
-    public Optional<Company> getUserCompanyBySchemaName(String schemaName) {
-        var exists = groupService.getUserCompanies()
+    @Transactional(value = REQUIRES_NEW)
+    public Set<Company> getUserCompanies() {
+        return customerCompanyService.findAll(Pageable.unpaged())
+                .map(it -> new Company(it.getId(), it.getCompanyName()))
+                .stream()
+                .collect(Collectors.toSet());
+    }
+
+    public Optional<Organization> getUserOrganizationBySchemaName(String schemaName) {
+        var exists = groupService.getUserOrganizations()
                 .stream()
                 .anyMatch(it -> it.name().equals(schemaName));
         if (exists) {
@@ -44,9 +60,9 @@ public class CompanyService {
         return Optional.empty();
     }
 
-    public Optional<Company> getBySchemaName(String schemaName) {
+    public Optional<Organization> getBySchemaName(String schemaName) {
         return customerService.getBySchemaName(schemaName)
-                .map(it -> new Company(it.id(), it.name(), it.identifier()));
+                .map(it -> new Organization(it.id(), it.name(), it.identifier()));
     }
 
 }
