@@ -8,7 +8,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.Optional;
+
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
 
 @ApplicationScoped
 public class CompanyRelationalRepositoryImpl implements CompanyRepository {

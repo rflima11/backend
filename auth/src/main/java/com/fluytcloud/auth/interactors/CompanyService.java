@@ -7,9 +7,12 @@ import com.fluytcloud.security.interactors.GroupService;
 import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
 
 @ApplicationScoped
 public class CompanyService {
@@ -38,6 +41,7 @@ public class CompanyService {
                 .collect(Collectors.toSet());
     }
 
+    @Transactional(value = REQUIRES_NEW)
     public Set<Company> getUserCompanies() {
         return customerCompanyService.findAll(Pageable.unpaged())
                 .map(it -> new Company(it.getId(), it.getCompanyName()))
