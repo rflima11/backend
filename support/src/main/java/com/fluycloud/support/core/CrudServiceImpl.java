@@ -36,7 +36,15 @@ public abstract class CrudServiceImpl<T, ID> implements CrudService<T, ID> {
         if (!exists) {
             throw new EntityNotFoundException(String.format("Entity %s not found", id));
         }
-        return create(object);
+
+        try {
+            return getRepository().update(id, object);
+        } catch (Exception exception) {
+            if (ExceptionUtils.getStackTrace(exception).contains("ConstraintViolationException")) {
+                throw new DuplicatedKeyException("CPF/CNPJ já cadastrado");
+            }
+            throw exception;
+        }
     }
 
     public void delete(ID id) {

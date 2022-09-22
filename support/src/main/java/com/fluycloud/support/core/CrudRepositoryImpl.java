@@ -40,6 +40,13 @@ public abstract class CrudRepositoryImpl<T, M, ID> implements CrudRepository<T, 
     }
 
     @Override
+    public T update(ID id, T object) {
+        var model = getMapper().mapToModel(object);
+        model = getJpaRepository().save(model);
+        return getMapper().mapToEntity(model);
+    }
+
+    @Override
     public boolean exists(ID id) {
         return getJpaRepository().existsById(id);
     }

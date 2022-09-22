@@ -13,6 +13,8 @@ public interface CrudRepository<T, ID> {
 
     T persist(T object);
 
+    T update(ID id, T object);
+
     boolean exists(ID id);
 
     void delete(ID id);

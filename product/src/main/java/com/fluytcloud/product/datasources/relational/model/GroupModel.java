@@ -26,7 +26,7 @@ public class GroupModel {
     @JoinColumn(name = "GROUP_ID")
     private GroupModel group;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<GroupModel> subgroups = new HashSet<>();
 
     public Integer getId() {
