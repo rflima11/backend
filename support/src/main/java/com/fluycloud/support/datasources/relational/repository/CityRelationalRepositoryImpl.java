@@ -19,7 +19,7 @@ public class CityRelationalRepositoryImpl implements CityRepository {
 
     @Override
     public List<City> search(String name) {
-        return jpaRepository.findByNameContainingIgnoreCaseIgnoreCase(name)
+        return jpaRepository.findByNameContainingIgnoreCase(name)
                 .stream()
                 .map(CityMapper::map)
                 .toList();
