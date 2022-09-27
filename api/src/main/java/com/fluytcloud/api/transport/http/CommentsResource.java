@@ -17,6 +17,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/api/v1/comments")
 @Authenticated
@@ -30,6 +31,16 @@ public class CommentsResource {
 
     public CommentsResource(CommentsService commentsService) {
         this.commentsService = commentsService;
+    }
+
+    @GET
+    @Path("search")
+    public List<CommentsResponse> search(@QueryParam("search") String name) {
+        return commentsService
+                .search(name)
+                .stream()
+                .map(CommentsMapper::map)
+                .toList();
     }
 
     @GET

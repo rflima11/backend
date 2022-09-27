@@ -6,6 +6,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class CrudServiceImpl<T, ID> implements CrudService<T, ID> {
@@ -55,4 +56,8 @@ public abstract class CrudServiceImpl<T, ID> implements CrudService<T, ID> {
         getRepository().delete(id);
     }
 
+    @Override
+    public List<T> search(String search) {
+        return getRepository().search(search);
+    }
 }

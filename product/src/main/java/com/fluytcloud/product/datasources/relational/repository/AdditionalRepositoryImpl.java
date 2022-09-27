@@ -6,9 +6,11 @@ import com.fluytcloud.product.datasources.relational.mapper.AdditionalModelMappe
 import com.fluytcloud.product.datasources.relational.model.AdditionalModel;
 import com.fluytcloud.product.entities.Additional;
 import com.fluytcloud.product.repositories.AdditionalRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
 
 @ApplicationScoped
 public class AdditionalRepositoryImpl extends CrudRepositoryImpl<Additional, AdditionalModel, Integer> implements AdditionalRepository {
@@ -28,4 +30,15 @@ public class AdditionalRepositoryImpl extends CrudRepositoryImpl<Additional, Add
     protected CrudMapper<Additional, AdditionalModel> getMapper() {
         return new AdditionalModelMapper();
     }
+
+    @Override
+    public List<Additional> search(String search) {
+        var list = StringUtils.isBlank(search)
+                ? additionalJpaRepository.findAll(pageable).getContent()
+                : additionalJpaRepository.findByNameContainingIgnoreCase(search, pageable);
+        return list.stream()
+                .map(it -> getMapper().mapToEntity(it))
+                .toList();
+    }
+
 }

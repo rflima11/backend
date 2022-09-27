@@ -2,9 +2,11 @@ package com.fluycloud.support.core;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class CrudRepositoryImpl<T, M, ID> implements CrudRepository<T, ID> {
@@ -12,6 +14,8 @@ public abstract class CrudRepositoryImpl<T, M, ID> implements CrudRepository<T, 
     protected abstract JpaRepository<M, ID> getJpaRepository();
 
     protected abstract CrudMapper<T, M> getMapper();
+
+    protected Pageable pageable = PageRequest.of(0, 20);
 
     @Override
     public Page<T> findAll(Pageable pageable) {
@@ -56,4 +60,8 @@ public abstract class CrudRepositoryImpl<T, M, ID> implements CrudRepository<T, 
         getJpaRepository().deleteById(id);
     }
 
+    @Override
+    public List<T> search(String search) {
+        throw new UnsupportedOperationException("search");
+    }
 }

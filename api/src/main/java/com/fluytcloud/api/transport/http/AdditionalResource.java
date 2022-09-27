@@ -17,6 +17,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/api/v1/additional")
 @Authenticated
@@ -30,6 +31,16 @@ public class AdditionalResource {
 
     public AdditionalResource(AdditionalService additionalService) {
         this.additionalService = additionalService;
+    }
+
+    @GET
+    @Path("search")
+    public List<AdditionalResponse> search(@QueryParam("search") String name) {
+        return additionalService
+                .search(name)
+                .stream()
+                .map(AdditionalMapper::map)
+                .toList();
     }
 
     @GET
