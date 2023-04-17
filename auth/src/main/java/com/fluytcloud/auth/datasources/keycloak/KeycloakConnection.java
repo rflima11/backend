@@ -13,12 +13,12 @@ public class KeycloakConnection {
         // todo ler url do keycloak das properties
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl("http://localhost:18080")
-                .realm("restaurante")
+                .realm("fluyt")
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .clientId("app-backend")
                 .clientSecret("PmqhRiH6UVcsGp1P67OgO23PWRKasfJu")
                 .build();
-        realmResource = keycloak.realm("restaurante");
+        realmResource = keycloak.realm("fluyt");
     }
 
     public RealmResource getRealmResource() {

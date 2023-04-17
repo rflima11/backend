@@ -54,7 +54,7 @@ jobs:
           QUARKUS_CONTAINER_IMAGE_PASSWORD: ${{secrets.DOCKERHUB_TOKEN}}
           QUARKUS_CONTAINER_IMAGE_PUSH: true
           QUARKUS_CONTAINER_IMAGE_GROUP: gasparbarancelli
-          QUARKUS_CONTAINER_IMAGE_NAME: restaurante-backend
+          QUARKUS_CONTAINER_IMAGE_NAME: fluyt-backend
           QUARKUS_CONTAINER_IMAGE_TAG: ${{github.run_number}}
         run:  mvn -B clean package -Dquarkus.profile=prod -Dquarkus.container-image.build=true
 
@@ -66,8 +66,8 @@ jobs:
       - name: Update gitOps repository
         uses: simplycubed/gitops-update@0.16
         with:
-          filename: "apps/restaurante/backend/app.yaml"
+          filename: "apps/fluyt/backend/app.yaml"
           key: "spec.template.spec.containers.0.image"
-          value: "gasparbarancelli/restaurante-backend:${{github.run_number}}"
+          value: "gasparbarancelli/fluyt-backend:${{github.run_number}}"
           github-deploy-key: ${{secrets.GITOPS}}
-          github-org-and-repo: "fluytcloud/restaurante-infrastructure"
+          github-org-and-repo: "fluytcloud/fluyt-infrastructure"

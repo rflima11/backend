@@ -1,0 +1,16 @@
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\entities\Customer.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\interactors\CustomerPersistUseCase.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\datasources\relational\mapper\CustomerModelMapper.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\datasources\relational\repository\CustomerRelationalRepositoryImpl.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\datasources\relational\model\CustomerModel.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\util\StringUtil.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\entities\exception\NotFoundException.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\interactors\CustomerService.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\transport\response\CustomerListResponse.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\transport\http\CustomerResource.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\transport\response\CustomerResponse.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\repositories\CustomerRepository.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\transport\mapper\CustomerMapper.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\datasources\relational\repository\CustomerJpaRepository.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\interactors\CustomerMigration.java
+C:\Projetos\fluytcloud\restaurante-backend\admin\src\main\java\com\fluytcloud\admin\transport\request\CustomerRequest.java

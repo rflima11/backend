@@ -1,0 +1,4 @@
+com\fluytcloud\core\entities\UserInfoContext.class
+com\fluytcloud\core\entities\Organization.class
+com\fluytcloud\core\entities\UserInfo.class
+com\fluytcloud\core\entities\Company.class
