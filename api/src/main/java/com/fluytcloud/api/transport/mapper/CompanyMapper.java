@@ -11,8 +11,7 @@ public class CompanyMapper {
         return new CompanyListResponse(
                 company.getId(),
                 company.getCompanyName(),
-                company.getTradeName(),
-                company.getCnpj()
+                company.getTradeName()
         );
     }
 
@@ -21,17 +20,7 @@ public class CompanyMapper {
                 company.getId(),
                 company.getCompanyName(),
                 company.getTradeName(),
-                company.getCnpj(),
-                CityMapper.map(company.getCity()),
-                company.getZipCode(),
-                company.getAddress(),
-                company.getAddressNumber(),
-                company.getDistrict(),
-                company.getComplement(),
-                company.getPhoneNumber(),
-                company.getEmail(),
-                company.getStateRegister(),
-                company.getMunicipalRegister()
+                company.getEmail()
         );
     }
 
@@ -40,17 +29,7 @@ public class CompanyMapper {
                 .id(request.id())
                 .companyName(request.companyName())
                 .tradeName(request.tradeName())
-                .cnpj(request.cnpj().replaceAll("\\D", ""))
-                .city(CityMapper.map(request.city()))
-                .zipCode(request.zipCode().replaceAll("\\D", ""))
-                .address(request.address())
-                .addressNumber(request.addressNumber())
-                .district(request.district())
-                .complement(request.complement())
-                .phoneNumber(request.phoneNumber().replaceAll("\\D", ""))
                 .email(request.email())
-                .stateRegister(request.stateRegister())
-                .municipalRegister(request.municipalRegister())
                 .build();
     }
 

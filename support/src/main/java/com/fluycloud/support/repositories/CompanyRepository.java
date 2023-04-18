@@ -13,6 +13,4 @@ public interface CompanyRepository {
     Optional<Company> findById(Integer id);
 
     Company persist(Company company);
-
-    Optional<Company> findByCnpj(String cnpj);
 }

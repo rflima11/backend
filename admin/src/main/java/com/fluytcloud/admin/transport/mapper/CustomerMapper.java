@@ -22,14 +22,6 @@ public class CustomerMapper {
                 customer.getId(),
                 customer.getCompanyName(),
                 customer.getTradeName(),
-                customer.getCnpj(),
-                customer.getCep(),
-                customer.getCityId(),
-                customer.getAddress(),
-                customer.getAddressNumber(),
-                customer.getDistrict(),
-                customer.getComplement(),
-                customer.getPhoneNumber(),
                 customer.getEmail(),
                 customer.getActive()
         );
@@ -39,16 +31,8 @@ public class CustomerMapper {
         return new Customer.CustomerBuilder()
                 .companyName(request.companyName())
                 .tradeName(request.tradeName())
-                .phoneNumber(request.phoneNumber().replaceAll("\\D", ""))
                 .email(request.email())
-                .cnpj(request.cnpj().replaceAll("\\D", ""))
-                .address(request.address())
-                .addressNumber(request.addressNumber())
-                .district(request.district())
-                .complement(request.complement())
                 .schemaName(StringUtil.stripAccents(request.companyName()))
-                .cep(request.cep().replaceAll("\\D", ""))
-                .cityId(request.cityId())
                 .active(request.active())
                 .build();
     }

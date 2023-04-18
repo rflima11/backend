@@ -27,10 +27,6 @@ public class CompanyService {
         return companyRepository.findById(id);
     }
 
-    public Optional<Company> findByCnpj(String cnpj) {
-        return companyRepository.findByCnpj(cnpj);
-    }
-
     public Company create(Company company) {
         try {
             return companyRepository.persist(company);

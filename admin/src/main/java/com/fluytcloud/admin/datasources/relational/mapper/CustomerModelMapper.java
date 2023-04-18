@@ -11,15 +11,7 @@ public class CustomerModelMapper {
                 .schemaName(customerModel.getSchemaName())
                 .companyName(customerModel.getCompanyName())
                 .tradeName(customerModel.getTradeName())
-                .phoneNumber(customerModel.getPhoneNumber())
-                .cep(customerModel.getCep())
-                .cityId(customerModel.getCityId())
                 .email(customerModel.getEmail())
-                .cnpj(customerModel.getCnpj())
-                .address(customerModel.getAddress())
-                .addressNumber(customerModel.getAddressNumber())
-                .district(customerModel.getDistrict())
-                .complement(customerModel.getComplement())
                 .active(customerModel.getActive())
                 .build();
     }
@@ -28,17 +20,9 @@ public class CustomerModelMapper {
         return new CustomerModel()
                 .setId(customer.getId())
                 .setSchemaName(customer.getSchemaName())
-                .setPhoneNumber(customer.getPhoneNumber())
                 .setCompanyName(customer.getCompanyName())
                 .setTradeName(customer.getTradeName())
-                .setCep(customer.getCep())
-                .setCityId(customer.getCityId())
                 .setEmail(customer.getEmail())
-                .setCnpj(customer.getCnpj())
-                .setAddress(customer.getAddress())
-                .setAddressNumber(customer.getAddressNumber())
-                .setDistrict(customer.getDistrict())
-                .setComplement(customer.getComplement())
                 .setActive(customer.getActive());
     }
 

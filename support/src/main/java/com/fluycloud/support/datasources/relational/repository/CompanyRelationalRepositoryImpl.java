@@ -8,10 +8,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
 import java.util.Optional;
-
-import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
 
 @ApplicationScoped
 public class CompanyRelationalRepositoryImpl implements CompanyRepository {
@@ -45,9 +42,4 @@ public class CompanyRelationalRepositoryImpl implements CompanyRepository {
         return COMPANY_MODEL_MAPPER.map(jpaRepository.save(COMPANY_MODEL_MAPPER.map(company)));
     }
 
-    @Override
-    public Optional<Company> findByCnpj(String cnpj) {
-        return jpaRepository.findByCnpj(cnpj)
-                .map(COMPANY_MODEL_MAPPER::map);
-    }
 }

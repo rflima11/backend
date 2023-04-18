@@ -1,10 +1,10 @@
 package com.fluytcloud.admin.interactors;
 
-import com.fluycloud.support.entities.City;
 import com.fluycloud.support.entities.Company;
 import com.fluycloud.support.interactors.CompanyService;
 import com.fluytcloud.admin.entities.Customer;
 import com.fluytcloud.admin.repositories.CustomerRepository;
+import com.fluytcloud.admin.util.StringUtil;
 import com.fluytcloud.auth.entities.Group;
 import com.fluytcloud.auth.entities.User;
 import com.fluytcloud.auth.interactors.GroupService;
@@ -65,17 +65,7 @@ public class CustomerPersistUseCase {
         return Company.builder()
                 .companyName(customer.getCompanyName())
                 .tradeName(customer.getTradeName())
-                .cnpj(customer.getCnpj())
-                .zipCode(customer.getCep())
-                .city(new City(customer.getCityId(), null, null))
-                .address(customer.getAddress())
-                .addressNumber(customer.getAddressNumber())
-                .district(customer.getDistrict())
-                .complement(customer.getComplement())
-                .phoneNumber(customer.getPhoneNumber())
                 .email(customer.getEmail())
-                .stateRegister("XXXXXX")
-                .municipalRegister("XXXXXXXXXXX")
                 .build();
     }
 
@@ -107,8 +97,7 @@ public class CustomerPersistUseCase {
         }
 
         private String getSubGroupName() {
-            //StringUtil.stripAccents(customer.getTradeName());
-            return customer.getCnpj().replaceAll("\\D", "");
+            return StringUtil.stripAccents(customer.getTradeName());
         }
 
         private String getGroupPath() {
