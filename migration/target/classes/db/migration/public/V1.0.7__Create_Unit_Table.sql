@@ -1,7 +1,0 @@
-CREATE TABLE public.UNIT (
-    ID  SERIAL PRIMARY KEY,
-    INITIALS bpchar(5) NOT NULL,
-    DESCRIPTION varchar(30) NOT NULL,
-    INITIALS_NFE bpchar(20) NULL
-);
-

@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rest" />
         <module name="core" />
+        <module name="kubernetes" />
         <module name="security" />
-        <module name="product" />
         <module name="auth" />
         <module name="migration" />
         <module name="admin" />
@@ -20,6 +20,8 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="company" target="17" />
+      <module name="product" target="17" />
+      <module name="restaurante" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
