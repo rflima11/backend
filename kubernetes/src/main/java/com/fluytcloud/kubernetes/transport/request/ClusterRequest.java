@@ -1,4 +1,4 @@
-package com.fluytcloud.api.transport.request;
+package com.fluytcloud.kubernetes.transport.request;
 
 import com.fluytcloud.kubernetes.entities.ConnectionType;
 

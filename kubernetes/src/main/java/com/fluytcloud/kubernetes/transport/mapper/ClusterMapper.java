@@ -1,9 +1,9 @@
-package com.fluytcloud.api.transport.mapper;
+package com.fluytcloud.kubernetes.transport.mapper;
 
-import com.fluytcloud.api.transport.request.ClusterRequest;
-import com.fluytcloud.api.transport.response.ClusterResponse;
-import com.fluytcloud.api.transport.response.ClusterResponseList;
 import com.fluytcloud.kubernetes.entities.Cluster;
+import com.fluytcloud.kubernetes.transport.request.ClusterRequest;
+import com.fluytcloud.kubernetes.transport.response.ClusterResponse;
+import com.fluytcloud.kubernetes.transport.response.ClusterResponseList;
 
 public class ClusterMapper {
 
