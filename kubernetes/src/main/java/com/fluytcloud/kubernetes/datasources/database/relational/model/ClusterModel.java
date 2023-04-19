@@ -1,6 +1,7 @@
 package com.fluytcloud.kubernetes.datasources.database.relational.model;
 
 import com.fluytcloud.kubernetes.entities.ConnectionType;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
