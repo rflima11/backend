@@ -21,24 +21,24 @@ public abstract class NamespaceObjectRepositoryImpl<T extends KubernetesObject> 
 
     @Override
     public List<T> list(Filter filter) {
-        if (Objects.isNull(filter) || Objects.isNull(filter.cluster())) {
+        if (Objects.isNull(filter) || Objects.isNull(filter.getCluster())) {
             return Collections.emptyList();
         }
 
         try {
-            if (Objects.nonNull(filter.namespaces()) && !filter.namespaces().isEmpty()) {
-                var list = filter.namespaces()
+            if (Objects.nonNull(filter.getNamespaces()) && !filter.getNamespaces().isEmpty()) {
+                var list = filter.getNamespaces()
                         .stream()
                         .flatMap(ThrowingFunction.handlingFunctionWrapper(namespace ->
-                            this.listByNamespace(filter.cluster(), parameters(filter, namespace)).stream(), ApiException.class))
+                            this.listByNamespace(filter.getCluster(), parameters(filter, namespace)).stream(), ApiException.class))
                         .toList();
 
                 return filter(list, filter);
             } else {
-                return filter(listByAllNamespace(filter.cluster(), parameters(filter, null)), filter);
+                return filter(listByAllNamespace(filter.getCluster(), parameters(filter, null)), filter);
             }
         } catch (ApiException e) {
-            LOGGER.error("error fetching objects from cluster {}", filter.cluster().name(), e);
+            LOGGER.error("error fetching objects from cluster {}", filter.getCluster().name(), e);
             return Collections.emptyList();
         }
     }
@@ -46,9 +46,9 @@ public abstract class NamespaceObjectRepositoryImpl<T extends KubernetesObject> 
     protected Search parameters(Filter filter, String namespace) {
         var parameters = new Search();
         parameters.setNamespace(namespace);
-        parameters.setLimit(filter.limit());
-        if (Objects.nonNull(filter.selector())) {
-            parameters.setLabelSelector(filter.selector());
+        parameters.setLimit(filter.getLimit());
+        if (Objects.nonNull(filter.getSelector())) {
+            parameters.setLabelSelector(filter.getSelector());
         }
         return parameters;
     }

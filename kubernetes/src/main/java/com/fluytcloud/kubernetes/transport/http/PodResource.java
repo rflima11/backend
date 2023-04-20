@@ -3,13 +3,15 @@ package com.fluytcloud.kubernetes.transport.http;
 import com.fluytcloud.kubernetes.entities.Filter;
 import com.fluytcloud.kubernetes.interactors.ClusterService;
 import com.fluytcloud.kubernetes.interactors.PodService;
-import com.fluytcloud.kubernetes.transport.response.PodResponse;
+import com.fluytcloud.kubernetes.transport.mapper.PodMapper;
+import com.fluytcloud.kubernetes.transport.request.PodRequestFilter;
+import com.fluytcloud.kubernetes.transport.request.PodRequestListFilter;
+import com.fluytcloud.kubernetes.transport.response.PodResponseList;
+import io.kubernetes.client.openapi.models.V1Pod;
 import io.quarkus.security.Authenticated;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -22,18 +24,29 @@ public class PodResource {
     private final PodService podService;
     private final ClusterService clusterService;
 
+    private static final PodMapper POD_MAPPER = new PodMapper();
+
     public PodResource(PodService podService, ClusterService clusterService) {
         this.podService = podService;
         this.clusterService = clusterService;
     }
 
     @GET
-    public List<PodResponse> getAllPods(Integer clusterId) {
-        var cluster = clusterService.findById(clusterId).get();
-        return podService.list(new Filter(cluster, null, null, null, null, null))
-                .stream()
-                .map(it -> new PodResponse(it.getMetadata().getNamespace(), it.getMetadata().getName()))
-                .toList();
+    @Path("list")
+    public List<PodResponseList> find(@BeanParam @Valid PodRequestListFilter podFilter) {
+        var cluster = clusterService.findById(podFilter.getClusterId())
+                .orElseThrow();
+        var filter = new Filter(cluster).setNamespaces(podFilter.getNamespaces()).setSearch(podFilter.getName());
+        var pods = podService.list(filter);
+        return POD_MAPPER.mapResponseList(pods);
+    }
+
+    @GET
+    public V1Pod get(@BeanParam @Valid PodRequestFilter podFilter) {
+        var cluster = clusterService.findById(podFilter.getClusterId())
+                .orElseThrow();
+        return podService.read(cluster, podFilter.getNamespace(), podFilter.getName())
+                .orElseThrow(() -> new NotFoundException("Pod not found"));
     }
 
 }

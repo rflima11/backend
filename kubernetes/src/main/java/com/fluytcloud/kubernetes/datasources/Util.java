@@ -21,7 +21,7 @@ public class Util {
     }
 
     public static <T extends KubernetesObject> List<T> filter(List<T> list, Filter filter) {
-        if (StringUtils.isBlank(filter.search()) && Objects.isNull(filter.ownerReference())) {
+        if (StringUtils.isBlank(filter.getSearch()) && Objects.isNull(filter.getOwnerReference())) {
             return list;
         }
 
@@ -29,16 +29,16 @@ public class Util {
         filters.add(kubernetesObject -> Objects.nonNull(kubernetesObject.getMetadata()));
         filters.add(kubernetesObject -> Objects.nonNull(kubernetesObject.getMetadata().getName()));
 
-        if (StringUtils.isNoneBlank(filter.search())) {
-            filters.add(kubernetesObject -> filter.search().contains(kubernetesObject.getMetadata().getName()));
+        if (StringUtils.isNoneBlank(filter.getSearch())) {
+            filters.add(kubernetesObject -> filter.getSearch().contains(kubernetesObject.getMetadata().getName()));
         }
 
-        if (Objects.nonNull(filter.ownerReference())) {
+        if (Objects.nonNull(filter.getOwnerReference())) {
             var ownerFilter = (Predicate<KubernetesObject>) k8sObject -> k8sObject.getMetadata().getOwnerReferences()
                     .stream()
                     .anyMatch(it ->
-                            it.getKind().equals(filter.ownerReference().workdloadType().getLabel())
-                                    && it.getName().equalsIgnoreCase(filter.ownerReference().owner())
+                            it.getKind().equals(filter.getOwnerReference().workdloadType().getLabel())
+                                    && it.getName().equalsIgnoreCase(filter.getOwnerReference().owner())
                     );
             filters.add(ownerFilter);
         }
