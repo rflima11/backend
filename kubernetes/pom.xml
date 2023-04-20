@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.ocpsoft.prettytime</groupId>
+            <artifactId>prettytime</artifactId>
+            <version>5.0.6.Final</version>
+        </dependency>
+        <dependency>
             <groupId>com.fluytcloud</groupId>
             <artifactId>rest</artifactId>
             <version>1.0.0-SNAPSHOT</version>

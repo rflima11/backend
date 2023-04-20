@@ -1,6 +1,6 @@
-C:\Projetos\fluytcloud\restaurante-backend\rest\src\main\java\com\fluytcloud\rest\exception\CustomExceptionHandler.java
-C:\Projetos\fluytcloud\restaurante-backend\rest\src\main\java\com\fluytcloud\rest\exception\NotFoundException.java
-C:\Projetos\fluytcloud\restaurante-backend\rest\src\main\java\com\fluytcloud\rest\exception\ErrorMessage.java
-C:\Projetos\fluytcloud\restaurante-backend\rest\src\main\java\com\fluytcloud\rest\exception\DuplicatedRecordException.java
-C:\Projetos\fluytcloud\restaurante-backend\rest\src\main\java\com\fluytcloud\rest\exception\RestException.java
-C:\Projetos\fluytcloud\restaurante-backend\rest\src\main\java\com\fluytcloud\rest\exception\NoContentException.java
+C:\Projetos\backend\rest\src\main\java\com\fluytcloud\rest\exception\DuplicatedRecordException.java
+C:\Projetos\backend\rest\src\main\java\com\fluytcloud\rest\exception\ErrorMessage.java
+C:\Projetos\backend\rest\src\main\java\com\fluytcloud\rest\exception\NotFoundException.java
+C:\Projetos\backend\rest\src\main\java\com\fluytcloud\rest\exception\NoContentException.java
+C:\Projetos\backend\rest\src\main\java\com\fluytcloud\rest\exception\CustomExceptionHandler.java
+C:\Projetos\backend\rest\src\main\java\com\fluytcloud\rest\exception\RestException.java

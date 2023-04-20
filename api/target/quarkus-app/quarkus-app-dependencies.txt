@@ -212,6 +212,7 @@ org.jboss:jboss-transaction-spi::jar:7.6.0.Final
 org.keycloak:keycloak-admin-client::jar:18.0.2
 org.keycloak:keycloak-common::jar:18.0.2
 org.keycloak:keycloak-core::jar:18.0.2
+org.ocpsoft.prettytime:prettytime::jar:5.0.6.Final
 org.postgresql:postgresql::jar:42.4.0
 org.reactivestreams:reactive-streams::jar:1.0.3
 org.slf4j:slf4j-api::jar:1.7.36
