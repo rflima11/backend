@@ -2,11 +2,11 @@ package com.fluytcloud.api.transport.http;
 
 import com.fluycloud.support.entities.DuplicatedKeyException;
 import com.fluycloud.support.interactors.CompanyService;
-import com.fluytcloud.api.transport.exception.DuplicatedRecordException;
-import com.fluytcloud.api.transport.exception.NoContentException;
 import com.fluytcloud.api.transport.mapper.CompanyMapper;
 import com.fluytcloud.api.transport.request.CompanyRequest;
 import com.fluytcloud.api.transport.response.CompanyResponse;
+import com.fluytcloud.rest.exception.DuplicatedRecordException;
+import com.fluytcloud.rest.exception.NoContentException;
 import io.quarkus.security.Authenticated;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

@@ -1,8 +1,5 @@
 C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\mapper\CompanyMapper.java
 C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\response\CompanyListResponse.java
-C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\exception\NoContentException.java
 C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\response\CompanyResponse.java
-C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\exception\NotFoundException.java
 C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\request\CompanyRequest.java
-C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\exception\DuplicatedRecordException.java
 C:\Projetos\fluytcloud\restaurante-backend\api\src\main\java\com\fluytcloud\api\transport\http\CompanyResource.java

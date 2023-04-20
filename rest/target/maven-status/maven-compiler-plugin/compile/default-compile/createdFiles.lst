@@ -1,3 +1,6 @@
-com\fluytcloud\rest\exception\ErrorMessage.class
+com\fluytcloud\rest\exception\DuplicatedRecordException.class
 com\fluytcloud\rest\exception\CustomExceptionHandler.class
+com\fluytcloud\rest\exception\NotFoundException.class
 com\fluytcloud\rest\exception\RestException.class
+com\fluytcloud\rest\exception\ErrorMessage.class
+com\fluytcloud\rest\exception\NoContentException.class

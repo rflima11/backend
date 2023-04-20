@@ -1,6 +1,4 @@
-package com.fluytcloud.api.transport.exception;
-
-import com.fluytcloud.rest.exception.RestException;
+package com.fluytcloud.rest.exception;
 
 import javax.ws.rs.core.Response;
 

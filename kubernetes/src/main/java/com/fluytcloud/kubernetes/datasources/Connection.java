@@ -17,7 +17,7 @@ public class Connection {
 
     private final ApiClient apiClient;
 
-    public Connection(@Nonnull Cluster cluster) throws IOException {
+    public Connection(@Nonnull Cluster cluster) {
         Objects.requireNonNull(cluster);
 
         if (ConnectionType.TOKEN.equals(cluster.connectionType())) {
@@ -33,7 +33,11 @@ public class Connection {
                     cluster.password()
             );
         } else {
-            apiClient = Config.defaultClient();
+            try {
+                apiClient = Config.defaultClient();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
