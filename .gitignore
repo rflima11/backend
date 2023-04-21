@@ -21,3 +21,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/.idea/
+/admin/target/
+/api/target/
+/auth/target/
+/core/target/
+/jpa/target/
+/kubernetes/target/
+/migration/target/
+/rest/target/
+/security/target/
+/support/target/
