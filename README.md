@@ -1,17 +1,27 @@
-O backend depende de diversos serviços externos, como: banco de dados postgres da aplicação, keycloak e banco de dados do keycloak. Para subir todos esses serviços você deve ter instalado o docker na sua maquina e executar o seguinte comando:
+The backend depends on several external services, such as: the application's postgres database, keycloak and keycloak database. To upload all these services you must have docker installed on your machine and run the following command:
 
 ```shell
 docker compose up
 ```
 
-Para iniciar o desenvolvimento com uma configuração minima do keycloak e da aplicação, execute os seguintes comandos para efetuar um restore dos bancos de dados:
+To start development with a minimal keycloak and application configuration, run the following commands to restore the databases:
 
 ```shell
 cat postgres-keycloak-backup.sql | docker exec -i postgres-keycloak psql -U root -d fluyt
 cat postgres-app-backup.sql | docker exec -i postgres-app psql -U root -d fluyt
 ```
 
-Caso queira realizar algum novo backup dos bancos de dados execute os comandos a seguir:
+When the database restoration is complete, you can use the following users to connect to the system:
+
+| User                   | Password | Role         | Schema                    |
+|------------------------|----------|--------------|---------------------------|
+| admin                  | 123      | admin        | admin                     |
+| manager@fluyt.com      | 123      | manager      | manager                   |
+| user@fluyt.com         | 123      | user         | user                      |
+| multi-tenant@fluyt.com | 123      | manager/user | manager/user/multi-tenant |
+| test                   | 123      | manager/user | manager/user/multi-tenant |
+
+If you want to perform a new backup of the databases, run the following commands:
 
 ```shell
 docker exec -i postgres-keycloak /usr/bin/pg_dumpall -U root > postgres-keycloak-backup.sql
