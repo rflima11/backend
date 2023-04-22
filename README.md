@@ -1,4 +1,4 @@
-The backend depends on several external services, such as: the application's postgres database, keycloak and keycloak database. To upload all these services you must have docker installed on your machine and run the following command:
+The backend depends on several external services, such as: the postgres database and keycloak. To upload all these services you must have docker installed on your machine and run the following command:
 
 ```shell
 docker compose up
@@ -7,8 +7,8 @@ docker compose up
 To start development with a minimal keycloak and application configuration, run the following commands to restore the databases:
 
 ```shell
-cat postgres-keycloak-backup.sql | docker exec -i postgres-keycloak psql -U root -d fluyt
-cat postgres-app-backup.sql | docker exec -i postgres-app psql -U root -d fluyt
+cat postgres-keycloak-backup.sql | docker exec -i postgres psql -U root -d fluyt
+cat postgres-app-backup.sql | docker exec -i postgres psql -U root -d fluyt
 ```
 
 When the database restoration is complete, you can use the following users to connect to the system:
