@@ -29,9 +29,7 @@ services:
     restart: unless-stopped
     env_file:
       - ./keycloak-postgres.env
-    entrypoint: [ "/opt/keycloak/bin/kc.sh", "start-dev", "--auto-build", "--db=postgres", "--import-realm" ]
-    volumes:
-      - ./realm-export.json:/opt/keycloak/data/import/realm.json
+    entrypoint: [ "/opt/keycloak/bin/kc.sh", "start-dev", "--auto-build", "--db=postgres"]
     expose:
       - 18080
     ports:
