@@ -4,8 +4,8 @@ import com.fluytcloud.kubernetes.entities.Filter;
 import com.fluytcloud.kubernetes.interactors.ClusterService;
 import com.fluytcloud.kubernetes.interactors.PodService;
 import com.fluytcloud.kubernetes.transport.mapper.PodMapper;
-import com.fluytcloud.kubernetes.transport.request.PodRequestFilter;
-import com.fluytcloud.kubernetes.transport.request.PodRequestListFilter;
+import com.fluytcloud.kubernetes.transport.request.NamespaceObjectRequestFilter;
+import com.fluytcloud.kubernetes.transport.request.NamespaceObjectRequestListFilter;
 import com.fluytcloud.kubernetes.transport.response.PodResponseList;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.quarkus.security.Authenticated;
@@ -33,7 +33,7 @@ public class PodResource {
 
     @GET
     @Path("list")
-    public List<PodResponseList> find(@BeanParam @Valid PodRequestListFilter podFilter) {
+    public List<PodResponseList> find(@BeanParam @Valid NamespaceObjectRequestListFilter podFilter) {
         var cluster = clusterService.findById(podFilter.getClusterId())
                 .orElseThrow();
         var filter = new Filter(cluster).setNamespaces(podFilter.getNamespaces()).setSearch(podFilter.getName());
@@ -42,7 +42,7 @@ public class PodResource {
     }
 
     @GET
-    public V1Pod get(@BeanParam @Valid PodRequestFilter podFilter) {
+    public V1Pod get(@BeanParam @Valid NamespaceObjectRequestFilter podFilter) {
         var cluster = clusterService.findById(podFilter.getClusterId())
                 .orElseThrow();
         return podService.read(cluster, podFilter.getNamespace(), podFilter.getName())
